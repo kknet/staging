@@ -1,11 +1,6 @@
 <template>
   <div>
-    <div class="nav">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>借款记录</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="searchCondition">
         <el-form ref="form" :model="form" class="demo-ruleForm" :label-position="labelPosition">
@@ -136,9 +131,17 @@
   </div>
 </template>
 <script>
+import breadcrumb from '../../components/Breadcrumb'
 export default {
   data() {
     return {
+      breadcrumbText: [{
+        title: '当前位置',
+        path: ''
+      }, {
+        title: '借款记录',
+        path: ''
+      }],
       labelPosition: 'top',
       form: {
         name: '',
@@ -154,16 +157,19 @@ export default {
     toDetail: function(params) {
       this.$router.push('/borrowDetail')
     }
+  },
+  components: {
+    breadcrumb
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base{
+.base {
   width: 1040px;
-  .searchCondition{
+  .searchCondition {
     overflow: hidden;
-    .btnWrapper{
+    .btnWrapper {
       margin-top: 24px;
     }
   }
