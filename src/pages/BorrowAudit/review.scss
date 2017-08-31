@@ -1,0 +1,53 @@
+.impove{
+    .model{
+        height: 200px;
+        width: 1200px;
+        border: 1px solid#20a0ff;
+        h1 {
+            font-size: 20px;
+            margin: 15px 0 15px 0;
+          }
+        
+    }
+}
+.titles{
+    position: relative;
+}
+@mixin common {
+    position:absolute;
+    top:10px;
+}
+.com-dc{
+  @include common;
+    left:240px;
+}
+.com-bi{
+    @include common;
+    left:260px;
+}
+.com-ge{
+    @include common;
+    left:230px;
+}
+#line{
+   height: 150px;
+}
+.com-tj-sc{
+    @include common;
+    left:260px;
+}
+.com-tj-ll{
+    @include common;
+    left:240px;
+}
+.com-tj-yll{
+    @include common;
+    left:200px;
+}
+#tjcenter{
+    height: 150px;
+}
+#wlqd{
+    height: 150px;
+    margin-left:300px;
+}

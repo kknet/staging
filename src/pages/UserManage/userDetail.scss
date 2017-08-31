@@ -1,0 +1,199 @@
+$border_top:1px solid #0099cc;
+.base{
+  font-size: 12px;
+  width: 1200px;
+}
+h1{
+  color: #323232;
+  font-weight: bolder;
+}
+.font_size{
+  font-size: 16px;
+}
+.base_wrapper{
+  color: #646464;
+  background-color: #f0f4fb;
+  border: 1px solid #0099cc;
+  .borrow_info{
+    padding: 20px;
+  }
+  .base_info{
+    .info_content{
+      font-size: 12px;
+      display: flex;
+      margin-top: 10px;
+      .flex{
+        div{
+          padding: 5px 10px 5px 0;
+        }
+      }
+    }
+  }
+  .borrowRecord{
+    table{
+      margin-top: 20px;
+      border: 1px solid #e1e6ef;
+      font-size: 12px;
+      thead{
+        background-color: #e1e6ef;
+      }  
+      tr th{
+        padding: 14px 12px;
+        text-align: center;
+      }
+      tr td{
+        padding: 14px 12px;
+        text-align: center;
+      }
+    }
+  }
+  .eid_report{
+    .info_content{
+      padding: 20px 20px 20px 0;
+      .circle{
+        background-image: url('http://static.hpbanking.com/xg/uploads/files/2b0c58d7133b7cab08d5d2ec510a9dc1-122-122.png');
+        background-size: 122px 122px;
+        width: 122px;
+        height: 122px;
+        text-align: center;
+        line-height: 122px;
+        color: #ffffff;
+      }
+      #lookDetail{
+        line-height: 122px;
+        &:hover{
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  .store_info
+    .top_section{
+      .title{
+        float: left;
+        margin-right: 3px;
+      }
+      #editBtn{
+        float: left;
+        line-height: 16px;
+        margin-left: 6px;
+      }
+      .save_cancel{
+        float: left;
+        line-height: 16px;
+        margin-left: 3px;
+      }
+    }
+    .info_content{
+      font-size: 12px;
+      display: flex;
+      padding-top: 10px;
+      clear: both;
+      .flex{
+        div{
+          padding: 5px 10px 5px 0;
+          .strore_input{
+            width: 180px;
+            display: block;
+          }
+        }
+      }
+    }
+    .imgs{
+      table{
+        margin-top: 20px;
+      }
+      table>tr>td{
+        width: 260px;
+        font-size: 18px;
+        font-weight: bold;
+      }
+    }
+  .house_prove{
+    border-top:$border_top;
+  }
+  .car_prove{
+    border-top:$border_top;
+    table{
+      display: block;
+      tr>td{
+        padding: 5px 0px;
+        width: 260px;
+        text-align: left;
+      }
+    }
+  }
+  .bank_card{
+    .info_content{
+      font-size: 12px;
+      display: flex;
+      margin-top: 10px;
+      div{
+        padding: 5px 10px 5px 0;
+      }
+    }
+  }
+  .urgency_linkman,.evaluate_result{
+    table{
+      display: block;
+      margin-top: 14px;
+      tr>td{
+        padding: 5px 10px 5px 0;
+        text-align: left;
+      }
+    }
+  }
+  .evaluate_result{
+    .detail_content{
+      display: flex;
+      color: #646464;
+      .col{
+        flex: 1;
+        border-right: 1px dashed #e4e4e4;
+        padding-left: 40px;
+        &:last-child{
+          border-right: none;
+        }
+        div{
+          padding: 4px 0 4px 0;
+        }
+      }
+    }
+    .footer{
+      text-align: center;
+      margin-top: 30px;
+    }
+  }
+}
+.this_content{
+  padding: 20px;
+  border-top:$border_top;
+}
+.text_center{
+  text-align: center;
+}
+.flex{
+  flex: 1;
+  font-size: 13px;
+  color: #646464;
+  span.blue{
+    color: #169bd5;
+  }
+  div{
+    width: 100%;
+    img{
+      height: 140px;
+    }
+  } 
+  .text{
+    text-align: center;
+  }
+}
+a{
+  text-align: center;
+  color: #0099cc;
+  cursor: pointer;
+}
+a:hover{
+  text-decoration: underline;
+}
