@@ -29,7 +29,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/zsdsys':{
-        target:'http://192.168.18.220:8052',
+        target:'http://192.168.18.178:3000',
         changeOrigin:true,
         pathRewrite:{
             '^/zsdsys':''

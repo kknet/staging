@@ -104,13 +104,24 @@ export default {
   methods: {
     getval() {
       let params = {
-        username: 123,
-        password: 123,
-        inputCode: 5328
+        id: 2
       }
       userLogin(params).then(res => {
-        console.log(res.error)
+        console.log('data:' + res)
       })
+      // let getUserLogin = async function() {
+      //   try {
+      //     let data = await userLogin(params)
+      //     if (data.status) {
+      //       console.log('data:' + data.data.name)
+      //     } else {
+      //       console.log('error')
+      //     }
+      //   } catch (err) {
+      //     console.log('出错了：' + err)
+      //   }
+      // }
+      // getUserLogin()
     },
     // 审核
     review() {
