@@ -1,11 +1,6 @@
 <template>
-    <div>
-    <div class="nav">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+  <div>
+    <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="searchCondition">
         <el-form ref="form" :model="form" class="demo-ruleForm" :label-position="labelPosition">
@@ -115,9 +110,17 @@
   </div>
 </template>
 <script>
+import breadcrumb from '../../components/Breadcrumb'
 export default {
   data() {
     return {
+      breadcrumbText: [{
+        title: '当前位置',
+        path: ''
+      }, {
+        title: '用户管理',
+        path: ''
+      }],
       labelPosition: 'top',
       form: {
         name: '',
@@ -133,6 +136,9 @@ export default {
     toDetail: function(params) {
       this.$router.push('/userDetail')
     }
+  },
+  components: {
+    breadcrumb
   }
 }
 </script>

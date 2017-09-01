@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="nav">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/userManage' }">用户管理</el-breadcrumb-item>
-        <el-breadcrumb-item>用户详情</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="base_wrapper">
         <el-row class="borrow_info">
@@ -70,7 +64,7 @@
                 <td>无逾期</td>
                 <td>--</td>
                 <td>
-                  <a type="text" @click="toDetail">查看详情</a>
+                  <a type="text">查看详情</a>
                 </td>
               </tr>
             </tbody>
@@ -466,16 +460,26 @@
   </div>
 </template>
 <script>
+import breadcrumb from '../../components/Breadcrumb'
 export default {
   data() {
     return {
+      breadcrumbText: [{
+        title: '当前位置',
+        path: ''
+      }, {
+        title: '用户管理',
+        path: '/userManage'
+      }, {
+        title: '用户详情',
+        path: ''
+      }],
       isEdit: false,
       dialogVisible: false
     }
   },
-  methods: {
-    toDetail() {
-    }
+  components: {
+    breadcrumb
   }
 }
 </script>

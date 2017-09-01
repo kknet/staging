@@ -1,12 +1,6 @@
 <template>
   <div>
-    <div class="nav">
-      <el-breadcrumb separator="/">
-        <el-breadcrumb-item>当前位置</el-breadcrumb-item>
-        <el-breadcrumb-item :to="{ path: '/borrowRecord' }">借款记录</el-breadcrumb-item>
-        <el-breadcrumb-item>借款详情</el-breadcrumb-item>
-      </el-breadcrumb>
-    </div>
+    <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="detail_wrapper">
         <h1 class="font_size_22">基本信息</h1>
@@ -39,99 +33,111 @@
       </div>
       <div class="table_wrapper">
         <table class="baseTable">
-            <thead>
-              <tr>
-                <th>期数</th>
-                <th>本金（元）</th>
-                <th>利息（元）</th>
-                <th>罚息（元）</th>
-                <th>逾期费用（元）</th>
-                <th>逾期费用（元）</th>
-                <th>状态</th>
-                <th>到期日</th>
-                <th>还款时间</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>兑换人</td>
-                <td>手机号码</td>
-                <td>所在店铺</td>
-                <td>使用方式</td>
-                <td>使用/剩余积分</td>
-                <td>礼品</td>
-                <td>收货进度</td>
-                <td>兑换时间</td>
-                <td>操作</td>
-              </tr>
-              <tr>
-                <td>兑换人</td>
-                <td>手机号码</td>
-                <td>所在店铺</td>
-                <td>使用方式</td>
-                <td>使用/剩余积分</td>
-                <td>礼品</td>
-                <td>收货进度</td>
-                <td>兑换时间</td>
-                <td>操作</td>
-              </tr>
-              <tr>
-                <td>兑换人</td>
-                <td>手机号码</td>
-                <td>所在店铺</td>
-                <td>使用方式</td>
-                <td>使用/剩余积分</td>
-                <td>礼品</td>
-                <td>收货进度</td>
-                <td>兑换时间</td>
-                <td>兑换时间</td>
-              </tr>
-            </tbody>
-          </table>
+          <thead>
+            <tr>
+              <th>期数</th>
+              <th>本金（元）</th>
+              <th>利息（元）</th>
+              <th>罚息（元）</th>
+              <th>逾期费用（元）</th>
+              <th>逾期费用（元）</th>
+              <th>状态</th>
+              <th>到期日</th>
+              <th>还款时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>兑换人</td>
+              <td>手机号码</td>
+              <td>所在店铺</td>
+              <td>使用方式</td>
+              <td>使用/剩余积分</td>
+              <td>礼品</td>
+              <td>收货进度</td>
+              <td>兑换时间</td>
+              <td>操作</td>
+            </tr>
+            <tr>
+              <td>兑换人</td>
+              <td>手机号码</td>
+              <td>所在店铺</td>
+              <td>使用方式</td>
+              <td>使用/剩余积分</td>
+              <td>礼品</td>
+              <td>收货进度</td>
+              <td>兑换时间</td>
+              <td>操作</td>
+            </tr>
+            <tr>
+              <td>兑换人</td>
+              <td>手机号码</td>
+              <td>所在店铺</td>
+              <td>使用方式</td>
+              <td>使用/剩余积分</td>
+              <td>礼品</td>
+              <td>收货进度</td>
+              <td>兑换时间</td>
+              <td>兑换时间</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
 </template>
 <script>
+import breadcrumb from '../../components/Breadcrumb'
 export default {
   data() {
     return {
+      breadcrumbText: [{
+        title: '当前位置'
+      }, {
+        title: '借款记录',
+        path: '/borrowRecord'
+      }, {
+        title: '借款详情'
+      }]
     }
+  },
+  components: {
+    breadcrumb
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.base{
+.base {
   width: 1040px;
-  .detail_wrapper{
+  .detail_wrapper {
     padding: 20px;
     border: 1px solid #0099cc;
     background-color: #f0f4fb;
-    font-weight: 800;
-    h1{
+    h1 {
       color: #323232;
+      font-weight: bolder;
     }
-    .font_size_22{
+    .font_size_22 {
       font-size: 16px;
     }
-    .detail_content{
+    .detail_content {
       display: flex;
       margin-top: 10px;
-      .flex{
+      .flex {
         flex: 1;
         color: #646464;
         font-size: 13px;
-        div{
+        div {
           padding: 5px 0;
-          span{
+          span {
             color: #169bd5;
           }
         }
       }
     }
   }
-  .table_wrapper{
+  .table_wrapper {
     margin-top: 20px;
     font-size: 13px;
   }
