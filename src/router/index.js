@@ -10,7 +10,7 @@ import Fund from '../pages/FundFlowWater/fund'
 import BorrowRecord from '../pages/BorrowRecord/borrowRecord'
 import BorrowDetail from '../pages/BorrowRecord/borrowDetail'
 import WaitRefundRecord from '../pages/WaitRefundRecord/waitRefundRecord'
-import UserManage from '../pages/UserManage/userManage'
+import CheckManage from '../pages/CheckManage/checkManage'
 import UserDetail from '../pages/UserManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
@@ -74,9 +74,9 @@ export default new Router({
           component: WaitRefundRecord
         },
         {
-          path: '/userManage',
-          name: 'UserManage',
-          component: UserManage
+          path: '/checkManage',
+          name: 'CheckManage',
+          component: CheckManage
         },
         {
           path: '/userDetail',

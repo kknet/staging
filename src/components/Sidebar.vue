@@ -29,41 +29,41 @@ export default {
         {
           icon: 'el-icon-setting',
           index: 'base',
-          title: '借款审核'
+          title: '分期审核'
         },
         {
           icon: 'el-icon-menu',
           index: 'review',
-          title: '提款审核'
+          title: '借款记录'
+          // subs: [
+          //   {
+          //     index: 'basetable',
+          //     title: '基础表格'
+          //   },
+
+          //   {
+          //     index: 'basetable2',
+          //     title: '基础表格2'
+          //   },
+          //   {
+          //     index: 'vuetable',
+          //     title: 'Vue表格组件'
+          //   }
+          // ]
         },
         {
           icon: 'el-icon-date',
           index: 'fund',
-          title: '资金流水'
+          title: '安保公司管理'
         },
         {
           icon: 'el-icon-star-on',
-          index: 'borrowRecord',
-          title: '借款记录'
+          index: 'checkManage',
+          title: '审核员管理'
         },
         {
           icon: 'el-icon-upload2',
           index: 'waitRefundRecord',
-          title: '待还款记录'
-        },
-        {
-          icon: 'el-icon-upload2',
-          index: 'userManage',
-          title: '用户管理'
-        },
-        {
-          icon: 'el-icon-upload2',
-          index: 'DataStatistics',
-          title: '数据统计'
-        },
-        {
-          icon: 'el-icon-upload2',
-          index: 'accountManage',
           title: '账号管理'
           // subs: [
           //   {

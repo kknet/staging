@@ -104,24 +104,10 @@ export default {
   methods: {
     getval() {
       let params = {
-        id: 2
       }
       userLogin(params).then(res => {
-        console.log('data:' + res)
+        console.log(res)
       })
-      // let getUserLogin = async function() {
-      //   try {
-      //     let data = await userLogin(params)
-      //     if (data.status) {
-      //       console.log('data:' + data.data.name)
-      //     } else {
-      //       console.log('error')
-      //     }
-      //   } catch (err) {
-      //     console.log('出错了：' + err)
-      //   }
-      // }
-      // getUserLogin()
     },
     // 审核
     review() {

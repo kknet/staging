@@ -23,7 +23,7 @@ export default {
 .home {
   font-size: 13px;
   .content {
-    background: none repeat scroll 0 0 #fff;
+    background: none repeat scroll 0 0 #f2f2f2;
     position: absolute;
     left: 200px;
     right: 0;
@@ -33,7 +33,7 @@ export default {
     box-sizing: border-box;
     overflow-y: scroll;
     .nav {
-      background: #f1f2f7;
+      background: #ffffff;
       padding: 20px 0 20px 20px;
     }
     .base {
@@ -45,15 +45,16 @@ export default {
       .tableIncludeBtn {
         width: 100%;
         border: 1px solid #e1e6ef;
+        background-color: #ffffff;
         thead {
-          background-color: #e1e6ef;
+          background-color: #cccccc;
         }
         tr th {
           padding: 16px 16px;
           text-align: center;
         }
         tr td {
-          padding: 10px 16px;
+          padding: 8px 16px;
           text-align: center;
         }
         tr:hover {
