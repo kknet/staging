@@ -104,12 +104,11 @@ export default {
   methods: {
     getval() {
       let params = {
-        username: 123,
-        password: 123,
-        inputCode: 5328
+        id: 1
       }
       userLogin(params).then(res => {
-        console.log(res.error)
+        console.log(res)
+        console.log(res.data.name)
       })
     },
     // 审核
