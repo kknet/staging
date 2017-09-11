@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="checkManage">
     <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="searchCondition">
@@ -49,7 +49,7 @@
             <td>所在店铺</td>
             <td>启用</td>
             <td>
-              <el-button size="small" type="primary">禁用</el-button>
+              <el-button size="small" type="primary" @click="openForbiddenBox('name')">禁用</el-button>
             </td>
           </tr>
           <tr>
@@ -67,7 +67,7 @@
         <el-pagination layout="prev, pager, next, jumper" :total="1000">
         </el-pagination>
       </div>
-      <el-dialog title="添加审核员" :visible.sync="dialogVisible" class="demo-ruleForm">
+      <el-dialog title="添加审核员" :visible.sync="dialogVisible" class="demo-ruleForm dialogForm">
         <el-form ref="addForm" :inline="true" :model="addForm" :rules="rules" class="demo-form-inline" label-position="left" label-width="120px">
           <el-form-item label="审核员手机号" prop="phone">
             <el-input v-model="addForm.phone" placeholder="请输入手机号"></el-input>
@@ -88,19 +88,10 @@
 </template>
 <script>
 import breadcrumb from '../../components/Breadcrumb'
+import utils from '../../common/js/phone'
+import { getCheckerList } from '../../api/index'
 export default {
   data() {
-    var checkPhone = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('手机号不能为空'))
-      } else {
-        if (/^1[3|4|5|7|8][0-9]\d{8}$/.test(value)) {
-          callback()
-        } else {
-          return callback(new Error('手机号不合法'))
-        }
-      }
-    }
     return {
       breadcrumbText: [{
         title: '当前位置',
@@ -122,7 +113,7 @@ export default {
       rules: {
         phone:
         [
-          { required: true, validator: checkPhone, trigger: 'blur,change' }
+          { required: true, validator: utils.checkPhone, trigger: 'blur,change' }
         ],
         checkMan:
         [
@@ -137,6 +128,23 @@ export default {
     }
   },
   methods: {
+    openForbiddenBox(account) {
+      this.$confirm(`此操作将禁用${account}的账号, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$message({
+          type: 'success',
+          message: '禁用成功!'
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消禁用'
+        })
+      })
+    },
     submitAddForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -147,6 +155,14 @@ export default {
         }
       })
     }
+  },
+  created() {
+    // ddd
+    let params = {
+    }
+    getCheckerList(params).then(res => {
+      console.log(res)
+    })
   },
   components: {
     breadcrumb
@@ -169,6 +185,8 @@ $main_width:700px;
   }
   .demo-ruleForm {
     text-align: center;
-  }
+  } // .dialogForm{
+  //   width: 410px;
+  // }
 }
 </style>

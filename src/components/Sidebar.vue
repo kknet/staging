@@ -62,8 +62,8 @@ export default {
           title: '审核员管理'
         },
         {
-          icon: 'el-icon-upload2',
-          index: 'waitRefundRecord',
+          icon: 'el-icon-document',
+          index: 'accountManage',
           title: '账号管理'
           // subs: [
           //   {

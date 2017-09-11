@@ -14,6 +14,7 @@ import CheckManage from '../pages/CheckManage/checkManage'
 import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
+import PersonInfo from '../pages/AccountManage/personInfo'
 
 Vue.use(Router)
 
@@ -92,6 +93,11 @@ export default new Router({
           path: '/accountManage',
           name: 'AccountManage',
           component: AccountManage
+        },
+        {
+          path: '/personInfo',
+          name: 'PersonInfo',
+          component: PersonInfo
         }
       ]
     }

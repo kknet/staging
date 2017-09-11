@@ -57,7 +57,7 @@ export default {
           padding: 8px 16px;
           text-align: center;
         }
-        tr:hover {
+        tbody tr:hover {
           background-color: #F1F2F7;
         }
       }
@@ -75,7 +75,7 @@ export default {
           padding: 14px 16px;
           text-align: center;
         }
-        tr:hover {
+        tbody tr:hover {
           background-color: #F1F2F7;
         }
       }
