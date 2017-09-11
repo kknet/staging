@@ -15,6 +15,7 @@ import UserDetail from '../pages/UserManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
 
+
 Vue.use(Router)
 
 export default new Router({
