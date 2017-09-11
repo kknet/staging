@@ -72,10 +72,30 @@
   </div>
 </template>
 <script>
+import { ERR_OK } from '../../common/js/config'
+import { checkView } from '../../api/index'
 export default {
   data() {
     return {
-
+      getList: []
+    }
+  },
+  created() {
+    this.id = this.$route.query.id
+    this.getval()
+    console.log(this.id)
+  },
+  methods: {
+    getval() {
+      let params = {
+        id: this.id
+      }
+      checkView(params).then(res => {
+        console.log(res)
+        if (res.code === ERR_OK) {
+          this.getList = res.list
+        }
+      })
     }
   }
 }
