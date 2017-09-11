@@ -3,7 +3,7 @@
     <breadcrumb :items="breadcrumbText"></breadcrumb>
     <div class="base">
       <div class="searchCondition">
-        <el-form ref="form" :model="form" class="demo-ruleForm" label-position="top">
+        <el-form ref="form" :model="form" class="demo-ruleForm" label-position="left">
           <el-row :gutter="20">
             <el-col :span="7">
               <el-form-item label="安保公司">
@@ -160,7 +160,7 @@ $main_width:700px;
   .searchCondition {
     overflow: hidden;
     .btnWrapper {
-      margin-top: 24px;
+      margin-top: 35px;
       .searchBtn {
         width: 94px;
         float: right;

@@ -11,7 +11,7 @@ import BorrowRecord from '../pages/BorrowRecord/borrowRecord'
 import BorrowDetail from '../pages/BorrowRecord/borrowDetail'
 import WaitRefundRecord from '../pages/WaitRefundRecord/waitRefundRecord'
 import CheckManage from '../pages/CheckManage/checkManage'
-import UserDetail from '../pages/UserManage/userDetail'
+import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
 

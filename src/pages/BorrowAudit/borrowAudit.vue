@@ -75,7 +75,7 @@
   </div>
 </template>
 <script>
-import { userLogin } from '../../api/index'
+// import { userLogin } from '../../api/index'
 export default {
   data() {
     return {
@@ -99,16 +99,16 @@ export default {
     }
   },
   created() {
-    this.getval()
+    // this.getval()
   },
   methods: {
-    getval() {
-      let params = {
-      }
-      userLogin(params).then(res => {
-        console.log(res)
-      })
-    },
+    // getval() {
+    //   let params = {
+    //   }
+    //   userLogin(params).then(res => {
+    //     console.log(res)
+    //   })
+    // },
     // 审核
     review() {
       this.$router.push('/basereview')
