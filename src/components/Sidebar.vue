@@ -58,7 +58,7 @@ export default {
         },
         {
           icon: 'el-icon-star-on',
-          index: 'borrowRecord',
+          index: 'checkManage',
           title: '审核员管理'
         },
         {

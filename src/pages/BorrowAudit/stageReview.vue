@@ -84,7 +84,7 @@
   </div>
 </template>
 <script>
-import { userLogin } from '../../api/index'
+// import { userLogin } from '../../api/index'
 export default {
   data() {
     return {
@@ -107,7 +107,7 @@ export default {
     }
   },
   created() {
-    this.getval()
+    // this.getval()
   },
   methods: {
     getval() {
