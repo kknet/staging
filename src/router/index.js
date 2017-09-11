@@ -2,16 +2,15 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '../pages/Login/Login'
 import Home from '../components/Home'
-import Base from '../pages/BorrowAudit/borrowAudit'
-import Basereview from '../pages/BorrowAudit/baseAudit'
+import stageReview from '../pages/BorrowAudit/stageReview'
+import detailReview from '../pages/BorrowAudit/detailReview'
 import Review from '../pages/WithdrawalReview/review'
-import Look from '../pages/BorrowAudit/look'
 import Fund from '../pages/FundFlowWater/fund'
 import BorrowRecord from '../pages/BorrowRecord/borrowRecord'
 import BorrowDetail from '../pages/BorrowRecord/borrowDetail'
 import WaitRefundRecord from '../pages/WaitRefundRecord/waitRefundRecord'
 import CheckManage from '../pages/CheckManage/checkManage'
-import UserDetail from '../pages/UserManage/userDetail'
+import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
 
@@ -35,19 +34,14 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/base',
-          name: 'Base',
-          component: Base
+          path: '/stageReview',
+          name: 'stageReview',
+          component: stageReview
         },
         {
-          path: '/basereview',
-          name: 'Basereview',
-          component: Basereview
-        },
-        {
-          path: '/look',
-          name: 'Look',
-          component: Look
+          path: '/detailReview',
+          name: 'detailReview',
+          component: detailReview
         },
         {
           path: '/review',
