@@ -1,4 +1,4 @@
 import http from './public'
 export const userLogin = (params) => {
-  return http.fetchGet('/zsdsys/users/getuserInfo', params)
+  return http.fetchGet('/zsdsys/goods', params)
 }
