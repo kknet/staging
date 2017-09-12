@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import stageReview from '../pages/BorrowAudit/stageReview'
 import detailReview from '../pages/BorrowAudit/detailReview'
 import Review from '../pages/WithdrawalReview/review'
+import borrowDetail from '../pages/WithdrawalReview/borrowDetail'
 import Fund from '../pages/FundFlowWater/fund'
 import BorrowRecord from '../pages/BorrowRecord/borrowRecord'
 import BorrowDetail from '../pages/BorrowRecord/borrowDetail'
@@ -13,6 +14,8 @@ import CheckManage from '../pages/CheckManage/checkManage'
 import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
+import SecurityCompany from '../pages/SecurityCompany/securityCompany'
+
 Vue.use(Router)
 
 export default new Router({
@@ -45,6 +48,11 @@ export default new Router({
           path: '/review',
           name: 'Review',
           component: Review
+        },
+        {
+          path: '/borrowDetail',
+          name: 'borrowDetail',
+          component: borrowDetail
         },
         {
           path: '/fund',
@@ -85,6 +93,11 @@ export default new Router({
           path: '/accountManage',
           name: 'AccountManage',
           component: AccountManage
+        },
+        {
+          path: '/securityCompany',
+          name: 'SecurityCompany',
+          component: SecurityCompany
         }
       ]
     }

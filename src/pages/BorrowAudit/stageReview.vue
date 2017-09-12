@@ -128,6 +128,7 @@ export default {
     }
   },
   methods: {
+
     getval() {
       let data = {
         checkStatus: 6,

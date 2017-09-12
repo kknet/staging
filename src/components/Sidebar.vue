@@ -53,7 +53,7 @@ export default {
         },
         {
           icon: 'el-icon-date',
-          index: 'fund',
+          index: 'securityCompany',
           title: '安保公司管理'
         },
         {
