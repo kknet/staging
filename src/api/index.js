@@ -1,6 +1,6 @@
 import http from './public'
 export const userLogin = (params) => {
-  return http.fetchPost('/zsdsys/goods', params)
+  return http.fetchPost('/zsdsys/login.json', params)
 }
 // 分期审核列表获取接口
 export const checkView = (params) => {
