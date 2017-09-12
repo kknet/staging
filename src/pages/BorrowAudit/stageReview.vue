@@ -45,7 +45,7 @@
         </div>
       </div>
 
-      <div class="btn">
+      <div class="btn" @click="search">
         <el-button type="primary">查询</el-button>
       </div>
       <table>
@@ -69,10 +69,10 @@
             <td>{{item.applyTime|getTime}}</td>
             <td>{{item.employeeName}}</td>
             <td>{{item.employeeName}}</td>
-            <td>{{item.checkStatus}}</td>
+            <td>{{item.checkStatus|getStatus}}</td>
             <td>
-              <el-button type="primary" @click="review(index)">审核</el-button>
-              <el-button type="primary" @click="detail(index)">详情</el-button>
+              <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===5">审核</el-button>
+              <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===7||item.checkStatus ===6">详情</el-button>
             </td>
           </tr>
         </tbody>
@@ -122,6 +122,9 @@ export default {
   filters: {
     getTime(t) {
       return format(t)
+    },
+    getStatus(t) {
+      return t === 5 ? '待审核' : t === 6 ? '审核驳回' : t === 7 ? '审核通过' : ''
     }
   },
   methods: {
@@ -149,6 +152,10 @@ export default {
         }
       })
     },
+    // 查询
+    search() {
+      this.getval()
+    },
     handleSizeChange(val) {
       console.log(`每页 ${val} 条`)
     },
@@ -159,7 +166,8 @@ export default {
     // 审核
     review(index) {
       let id = this.getList[index].id
-      this.$router.push('/detailReview?id=' + id)
+      let status = this.getList[index].checkStatus
+      this.$router.push('/detailReview?id=' + id + '&status=' + status)
     },
     // 详情
     detail() {
@@ -177,6 +185,8 @@ export default {
 .base {
   table {
     border: 1px solid #e1e6ef;
+    width: 1200px;
+    margin-top: 30px;
     thead {
       background-color: #e1e6ef;
     }

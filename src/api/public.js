@@ -1,5 +1,5 @@
 import axios from 'axios'
-var qs = require('qs')
+import qs from 'qs'
 export default {
   fetchGet(url, params) {
     return new Promise((resolve, reject) => {
