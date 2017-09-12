@@ -110,14 +110,14 @@ export default {
     // this.getval()
   },
   methods: {
-    getval() {
-      let params = {
-      }
-      userLogin(params).then(res => {
-        console.log(res)
-        console.log(res.data)
-      })
-    },
+    // getval() {
+    //   let params = {
+    //   }
+    //   userLogin(params).then(res => {
+    //     console.log(res)
+    //     console.log(res.data)
+    //   })
+    // },
     // 审核
     review() {
       this.$router.push('/detailReview')
