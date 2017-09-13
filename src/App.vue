@@ -20,7 +20,7 @@ export default {
     width: 173px;
   }
   .el-dialog--small {
-    width: 420px;
+    width: 370px;
   }
 }
 </style>

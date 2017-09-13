@@ -28,7 +28,7 @@ export default {
       items: [
         {
           icon: 'el-icon-setting',
-          index: 'base',
+          index: 'stageReview',
           title: '分期审核'
         },
         {

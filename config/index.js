@@ -30,6 +30,7 @@ module.exports = {
     proxyTable: {
       '/zsdsys':{
         target:'http://192.168.18.170:8061',
+        // target:'http://192.168.18.178:3000',
         changeOrigin:true,
         pathRewrite:{
             '^/zsdsys':''
