@@ -1,1 +1,1 @@
-export const address = state => state.address
+export const getStatus = state => state.getStatus

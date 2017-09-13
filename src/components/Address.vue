@@ -27,7 +27,6 @@ export default {
         area: ''
       },
       province: [],
-
       city: [],
       area: []
     }
@@ -46,29 +45,30 @@ export default {
     },
     firstLeve() {
       let params = {
-        areaCode: this.value
+        areaCode: this.address.province
       }
       getCity(params).then((res) => {
         if (res.code === ERR_OK) {
-          this.city = this.getAddress(res.list)
-          this.value1 = ''
-          this.value2 = ''
+          this.address.city = ''
+          this.address.area = ''
           this.area = []
+          this.city = this.getAddress(res.list)
         }
       })
     },
     secLeve() {
       let params = {
-        areaCode: this.value1
+        areaCode: this.address.city
       }
       getCity(params).then((res) => {
         if (res.code === ERR_OK) {
           this.area = this.getAddress(res.list)
-          this.value2 = ''
+          this.address.area = ''
         }
       })
     },
     getthir() {
+      this.$emit('listenToChildEvent', this.address)
       this.setAddress(this.address)
     },
     getAddress(lists) {

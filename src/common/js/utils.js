@@ -26,7 +26,7 @@ export default {
     Vue.filter('reverseStatus', function (value) {
       if (value === 0) {
         return '启用'
-      } else {
+      } else if (value === 1) {
         return '禁用'
       }
     })

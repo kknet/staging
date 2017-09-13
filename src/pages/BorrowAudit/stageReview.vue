@@ -62,7 +62,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item, index) in getList" :key="item.value">
+          <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
             <td>{{item.orderNo}}</td>
             <td>{{item.shopName}}</td>
             <td>{{item.amount}}</td>
@@ -74,6 +74,9 @@
               <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===5">审核</el-button>
               <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===7||item.checkStatus ===6">详情</el-button>
             </td>
+          </tr>
+          <tr v-show="getList.length === 0">
+            <td class="noData" colspan="8">暂无数据...</td>
           </tr>
         </tbody>
       </table>
@@ -88,6 +91,7 @@
 import { ERR_OK } from '../../common/js/config'
 import { format } from '../../common/js/times'
 import { checkView } from '../../api/index'
+import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -128,19 +132,18 @@ export default {
     }
   },
   methods: {
-
     getval() {
-      let data = {
-        checkStatus: 6,
+      let params = {
+        checkStatus: this.value,
         shopName: this.shopName,
-        startTime: this.timer[0] === null ? '' : Date.parse(this.timer[0]),
-        endTime: this.timer[1] === null ? '' : Date.parse(this.timer[1]),
+        _startTime: this.timer[0] ? Date.parse(this.timer[0]) : '',
+        _endTime: this.timer[1] ? Date.parse(this.timer[1]) : '',
         companyName: this.companyName,
         employeeName: this.employeeName,
         pageIndex: 1,
         pageSize: 10
       }
-      checkView(data).then(res => {
+      checkView(params).then(res => {
         console.log(res)
         if (res.code === ERR_OK) {
           this.getList = res.list
@@ -168,12 +171,17 @@ export default {
     review(index) {
       let id = this.getList[index].id
       let status = this.getList[index].checkStatus
-      this.$router.push('/detailReview?id=' + id + '&status=' + status)
+      this.$router.push('/detailReview?id=' + id)
+      localStorage.setItem('ms_username', status)
+      this.setStatus()
     },
     // 详情
     detail() {
 
     },
+    ...mapMutations({
+      setStatus: 'SET_STATUS'
+    }),
     // 查看
     look() {
       this.$router.push('/look')
@@ -194,6 +202,7 @@ export default {
     tr th,
     tr td {
       padding: 14px 16px;
+      text-align: center;
     }
     tr:hover {
       background-color: #F1F2F7;
@@ -211,6 +220,10 @@ export default {
   }
   .btn {
     display: inline-block;
+  }
+  .noData {
+    font-size: 16px;
+    padding: 30px;
   }
 }
 </style>

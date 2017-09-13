@@ -13,35 +13,35 @@
         <div class="null"></div>
         <div class="title">
           <span class="first-span">门头店名</span>
-          <span>{{detailList.shopName}}</span>
+          <span v-if="detailList">{{detailList.shopName}}</span>
         </div>
         <div class="title">
           <span class="first-span">店主</span>
-          <span>{{detailList.nameame}}</span>
+          <span v-if="detailList">{{detailList.nameame}}</span>
         </div>
         <div class="title">
           <span class="first-span">借款金额</span>
-          <span>{{detailList.amount}}</span>
+          <span v-if="detailList">{{detailList.amount}}</span>
         </div>
         <div class="title">
           <span class="first-span">还款期数</span>
-          <span>{{detailList.alreadyRepayTimes}}期/{{detailList.repayTotalTimes}}期</span>
+          <span v-if="detailList">{{detailList.alreadyRepayTimes}}期/{{detailList.repayTotalTimes}}期</span>
         </div>
         <div class="title">
           <span class="first-span">生成时间</span>
-          <span>{{detailList.updated}}</span>
+          <span v-if="detailList">{{detailList.updated}}</span>
         </div>
         <div class="title">
           <span class="first-span">借款时间</span>
-          <span>15822</span>
+          <span v-if="detailList">{{detailList.dealTime}}</span>
         </div>
         <div class="title">
           <span class="first-span">订单号</span>
-          <span>{{detailList.orderNo}}</span>
+          <span v-if="detailList">{{detailList.orderNo}}</span>
         </div>
         <div class="title">
           <span class="first-span">服务公司</span>
-          <span>{{detailList.companyName}}</span>
+          <span v-if="detailList">{{detailList.companyName}}</span>
         </div>
         <div class="title">
           <span class="first-span">申请信息</span>
@@ -49,15 +49,15 @@
         </div>
         <div class="title">
           <span class="first-span">开户人</span>
-          <span>{{detailList.name}}</span>
+          <span v-if="detailList">{{detailList.name}}</span>
         </div>
         <div class="title">
           <span class="first-span">开户行</span>
-          <span>{{detailList.bankName}}</span>
+          <span v-if="detailList">{{detailList.bankName}}</span>
         </div>
         <div class="title">
           <span class="first-span">卡号</span>
-          <span>{{detailList.bankCardNo}}</span>
+          <span v-if="detailList">{{detailList.bankCardNo}}</span>
         </div>
         <div>
           <div></div>
@@ -65,7 +65,7 @@
           <div></div>
         </div>
       </div>
-      <h2>安保套餐信息</h2>
+      <h2>还款计划</h2>
       <table>
         <thead>
           <tr>
@@ -77,29 +77,32 @@
           </tr>
         </thead>
         <tbody>
-            <tr v-for="item in repayList">
-              <td>{{item.repayPeriod}}</td>
-              <td>{{item.amount}}</td>
-              <td>{{item.repayDate}}</td>
-              <td>{{item.status | getStatus}}</td>
-              <td>
-                <el-button type="primary" @click="goDetail(item.id)">详情</el-button>
-              </td>
-            </tr>
-          </tbody>
+          <tr v-for="item in repayList">
+            <td>{{item.repayPeriod}}</td>
+            <td>{{item.amount}}</td>
+            <td>{{item.repayDate}}</td>
+            <td>{{item.status | getStatus}}</td>
+            <td>
+              <el-button type="primary" @click="repayMoney">代还款</el-button>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 </template>
 <script>
 // import axios from 'config/http';
-import { statusFormatter } from 'common/js/status';
+import { applyDetail, repay, repayMony } from '../../api/index'
+import { statusFormatter } from 'common/js/status'
+import { ERR_OK } from 'common/js/config'
 // import { Message } from 'element-ui';
 export default {
   data() {
     return {
       detailList: {},
-      repayList: []
+      repayList: [],
+      id: ''
     }
   },
   filters: {
@@ -109,38 +112,62 @@ export default {
   },
   methods: {
     // 获取详情
-    // getDetail(id) {
-    //   axios.post('/zsdsys/apply/checkView.json', {
-    //     id: id
-    //   })
-    //     .then((res) => {
-    //       this.detailList = res.data.list[0];
-    //     })
-    //     .catch((error) => {
-    //       Message(error)
-    //     })
-    // },
+    getDetail(id) {
+      let params = {
+        id: id
+      }
+      applyDetail(params).then((res) => {
+        if (res.code === ERR_OK) {
+          console.log(res)
+          this.detailList = res.list[0]
+          console.log(this.detailList)
+        }
+      })
+    },
+    // 代还款
+    repayMoney() {
+      this.$confirm('是否确认代还款?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let params = {
+          id: this.id
+        }
+        repayMony(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this.getDetail(this.id);
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
     // 还款计划
-    // getRepayPaln(id) {
-    //   axios.post('/zsdsys/apply/repaymentView.json', {
-    //     id: id
-    //   })
-    //     .then((res) => {
-    //       console.log(res.data)
-    //       this.repayList = res.data.list;
-    //     })
-    //     .catch((error) => {
-    //       Message(error)
-    //     })
-    // },
+    getRepayPaln(id) {
+      let params = {
+        id: id
+      }
+      repay(params).then((res) => {
+        if (res.code === ERR_OK) {
+          this.repayList = res.list
+          console.log(this.repayList)
+          console.log(21)
+        }
+      })
+    },
     // 返回上一级
     goBack() {
       this.$router.go(-1);
     }
   },
   created() {
-    this.getDetail(this.$route.params.id);
-    this.getRepayPaln(this.$route.params.id);
+    this.id = this.$route.query.id
+    this.getDetail(this.id);
+    this.getRepayPaln(this.id);
   }
 }
 </script>

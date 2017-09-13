@@ -8,6 +8,10 @@ export const userLogin = (params) => {
 export const checkView = (params) => {
   return http.fetchPost('/zsdsys/apply/checkView.json', params)
 }
+// 分期审核结果
+export const checkResult = (params) => {
+  return http.fetchPost('/zsdsys/apply/checkResult.json', params)
+}
 // 分期审核列表获取接口
 export const reviewDetail = (params) => {
   return http.fetchPost('/zsdsys/apply/checkView.json', params)
@@ -60,12 +64,35 @@ export const result = (params) => {
 export const companyList = (params) => {
   return http.fetchPost('/zsdsys/securityCompany/securityCompanyView.json', params)
 }
-// 分期安保公司列表
+// 分期获取省
 export const getProvince = (params) => {
   return http.fetchPost('/zsdsys/common/area/province.json', params)
 }
-// 分期安保公司列表
+// 分期获取市区
 export const getCity = (params) => {
   return http.fetchPost('/zsdsys/common/area/subList.json', params)
 }
-
+// 添加安保公司
+export const addCompany = (params) => {
+  return http.fetchPost('/zsdsys/securityCompany/securityCompanyInsert.json', params)
+}
+// 编辑安保公司
+export const eidtCompany = (params) => {
+  return http.fetchPost('/zsdsys/securityCompany/forbiddenSec.json', params)
+}
+// 借款记录列表
+export const applyList = (params) => {
+  return http.fetchPost('/zsdsys/apply/applyView.json', params)
+}
+// 借款记录点击详情,借款信息接口
+export const applyDetail = (params) => {
+  return http.fetchPost('/zsdsys/apply/checkView.json', params)
+}
+// 借款记录还款计划接口
+export const repay = (params) => {
+  return http.fetchPost('/zsdsys/apply/repaymentView.json', params)
+}
+// 借款记录点击代还款接口
+export const repayMony = (params) => {
+  return http.fetchPost('/zsdsys/apply/editStatus.json', params)
+}
