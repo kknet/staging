@@ -91,7 +91,7 @@
 import Vue from 'vue'
 import breadcrumb from '../../components/Breadcrumb'
 import utils from '../../common/js/utils'
-import { ERR_OK } from '../../common/js/config'
+// import { ERR_OK } from '../../common/js/config'
 import { getCheckers, addChecker, getCompanyList, forbiddenToggle } from '../../api/index'
 Vue.use(utils)
 export default {
@@ -240,10 +240,11 @@ export default {
         }
       })
     },
-    getCheckerList(data) {
-      getCheckers(data).then(res => {
+    getCheckerList(params) {
+      getCheckers(params).then(res => {
+        console.log(params)
         console.log(res)
-        if (res.code === ERR_OK) {
+        if (res.code === 0) {
           this.getList = res.list
           this.total = res.count
           if (this.total <= this.pageSize) {
@@ -260,20 +261,19 @@ export default {
     },
     handleCurrentChange(currentPage) {
       console.log(currentPage)
-      let data = {
+      let params = {
         pageIndex: currentPage,
         pageSize: 10
       }
-      this.getCheckerList(data)
+      this.getCheckerList(params)
     }
   },
   created() {
-    let data = {
-      pageIndex: this.pageIndex,
-      pageSize: this.pageSize
+    let params = {
+      pageIndex: 1,
+      pageSize: 10
     }
-    console.log(data)
-    this.getCheckerList(data)
+    this.getCheckerList(params)
   },
   components: {
     breadcrumb

@@ -11,7 +11,6 @@ export const checkView = (params) => {
 export const reviewDetail = (params) => {
   return http.fetchPost('/zsdsys/apply/checkView.json', params)
 }
-<<<<<<< HEAD
 // 审核员列表获取接口
 export const getCheckers = (params) => {
   return http.fetchPost('/zsdsys/employee/employeeView.json', params)
@@ -43,7 +42,7 @@ export const forbiddenToggleAdmin = (params) => {
 // 编辑账号接口
 export const editAccount = (params) => {
   return http.fetchPost('/zsdsys/admin/forbiddenAdmin.json', params)
-=======
+}
 // 分期照片信息获取接口
 export const getListImg = (params) => {
   return http.fetchPost('/zsdsys/apply/auditImageView.json', params)
@@ -55,5 +54,4 @@ export const insure = (params) => {
 // 分期审核结果获取
 export const result = (params) => {
   return http.fetchPost('/zsdsys/apply/checkResult.json', params)
->>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
 }
