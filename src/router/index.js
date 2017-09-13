@@ -14,7 +14,11 @@ import CheckManage from '../pages/CheckManage/checkManage'
 import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
+<<<<<<< HEAD
+import PersonInfo from '../pages/AccountManage/personInfo'
+=======
 import SecurityCompany from '../pages/SecurityCompany/securityCompany'
+>>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
 
 Vue.use(Router)
 
@@ -95,9 +99,15 @@ export default new Router({
           component: AccountManage
         },
         {
+<<<<<<< HEAD
+          path: '/personInfo',
+          name: 'PersonInfo',
+          component: PersonInfo
+=======
           path: '/securityCompany',
           name: 'SecurityCompany',
           component: SecurityCompany
+>>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
         }
       ]
     }

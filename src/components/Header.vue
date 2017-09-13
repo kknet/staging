@@ -3,10 +3,13 @@
     <div class="logo">后台管理系统</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
-         <span class="el-dropdown-link">
-          <!-- <img class="user-logo" src="../../../static/img/img.jpg"> {{username}} -->
+        <span class="el-dropdown-link">
+          <i class="el-icon-star-on"></i>
+          <span style="margin-left:10px;margin-right:10px">{{role}} {{name}}</span>
+          <i class="el-icon-caret-bottom"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="personInfo">个人信息</el-dropdown-item>
           <el-dropdown-item command="loginout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -17,6 +20,7 @@
 export default {
   data() {
     return {
+      role: '管理员',
       name: 'linxin'
     }
   },
@@ -31,6 +35,8 @@ export default {
       if (command === 'loginout') {
         localStorage.removeItem('ms_username')
         this.$router.push('/login')
+      } else if (command === 'personInfo') {
+        this.$router.push('/personInfo')
       }
     }
   }
@@ -68,15 +74,6 @@ export default {
   color: #fff;
   cursor: pointer;
   vertical-align: middle;
-}
-
-.user-info .user-logo {
-  position: absolute;
-  left: 0;
-  top: 15px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
 }
 
 .el-dropdown-menu__item {

@@ -15,9 +15,13 @@
     "babel-polyfill": "^6.23.0",
     "babel-runtime": "^6.26.0",
     "element-ui": "1.3.1",
+<<<<<<< HEAD
+    "qs": "^6.5.1",
+=======
     "jsonp": "0.2.1",
     "qs": "^6.5.1",
     "v-distpicker": "^1.0.6",
+>>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
     "vue": "^2.3.3",
     "vue-router": "^2.6.0",
     "vuex":"^2.4.0"
