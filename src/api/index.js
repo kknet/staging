@@ -1,8 +1,20 @@
 import http from './public'
 // 登录接口
 export const userLogin = (params) => {
-  console.log(params)
   return http.fetchPost('/zsdsys/login.json', params)
+}
+// 修改密码接口
+export const modifyPassword = (params) => {
+  console.log(params)
+  return http.fetchPost('/zsdsys/admin/editPassword.json', params)
+}
+// 重置密码接口
+export const resetPassword = (params) => {
+  return http.fetchPost('/zsdsys/admin/resetPassword.json', params)
+}
+// 账户详情接口(个人信息接口)
+export const personInfo = (params) => {
+  return http.fetchPost('/zsdsys/admin/currentAdminer.json', params)
 }
 // 分期审核列表获取接口
 export const checkView = (params) => {
@@ -55,9 +67,6 @@ export const insure = (params) => {
 // 分期审核结果获取
 export const result = (params) => {
   return http.fetchPost('/zsdsys/apply/checkResult.json', params)
-<<<<<<< HEAD
-}
-=======
 }
 // 分期安保公司列表
 export const companyList = (params) => {
@@ -72,4 +81,3 @@ export const getCity = (params) => {
   return http.fetchPost('/zsdsys/common/area/subList.json', params)
 }
 
->>>>>>> 81e4151ef4cd19aeec6c7c8f07901b4646f3c7c3

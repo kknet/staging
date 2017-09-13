@@ -88,12 +88,9 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
 import breadcrumb from '../../components/Breadcrumb'
-import utils from '../../common/js/utils'
-// import { ERR_OK } from '../../common/js/config'
 import { getCheckers, addChecker, getCompanyList, forbiddenToggle } from '../../api/index'
-Vue.use(utils)
+
 export default {
   data() {
     return {
