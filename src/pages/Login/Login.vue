@@ -3,8 +3,8 @@
     <div class="ms-title">后台管理系统</div>
     <div class="ms-login">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-        <el-form-item prop="adminerName">
-          <el-input v-model="ruleForm.adminerName" placeholder="adminerName"></el-input>
+        <el-form-item prop="username">
+          <el-input v-model="ruleForm.adminerName" placeholder="username"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
@@ -14,7 +14,7 @@
           <img :src="imgUrl" alt="" @click="img">
         </el-form-item>
         <p style="font-size:12px;line-height:28px;color:#ff4949;
-                              margin-top:-25px;height:28px;">{{falval}}</p>
+                                margin-top:-25px;height:28px;">{{falval}}</p>
         <div class="login-btn">
           <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         </div>
@@ -59,7 +59,7 @@ export default {
             console.log(res)
             if (res.code === ERR_OK) {
               // localStorage.setItem('ms_username', self.ruleForm.username)
-              // self.$router.push('/stageReview')
+              self.$router.push('/stageReview')
             } else {
               this.falval = res.error
             }

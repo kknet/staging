@@ -92,9 +92,9 @@
   </div>
 </template>
 <script>
-import axios from 'config/http';
+// import axios from 'config/http';
 import { statusFormatter } from 'common/js/status';
-import { Message } from 'element-ui';
+// import { Message } from 'element-ui';
 export default {
   data() {
     return {
@@ -109,30 +109,30 @@ export default {
   },
   methods: {
     // 获取详情
-    getDetail(id) {
-      axios.post('/zsdsys/apply/checkView.json', {
-        id: id
-      })
-        .then((res) => {
-          this.detailList = res.data.list[0];
-        })
-        .catch((error) => {
-          Message(error)
-        })
-    },
+    // getDetail(id) {
+    //   axios.post('/zsdsys/apply/checkView.json', {
+    //     id: id
+    //   })
+    //     .then((res) => {
+    //       this.detailList = res.data.list[0];
+    //     })
+    //     .catch((error) => {
+    //       Message(error)
+    //     })
+    // },
     // 还款计划
-    getRepayPaln(id) {
-      axios.post('/zsdsys/apply/repaymentView.json', {
-        id: id
-      })
-        .then((res) => {
-          console.log(res.data)
-          this.repayList = res.data.list;
-        })
-        .catch((error) => {
-          Message(error)
-        })
-    },
+    // getRepayPaln(id) {
+    //   axios.post('/zsdsys/apply/repaymentView.json', {
+    //     id: id
+    //   })
+    //     .then((res) => {
+    //       console.log(res.data)
+    //       this.repayList = res.data.list;
+    //     })
+    //     .catch((error) => {
+    //       Message(error)
+    //     })
+    // },
     // 返回上一级
     goBack() {
       this.$router.go(-1);

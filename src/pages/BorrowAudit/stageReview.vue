@@ -133,8 +133,8 @@ export default {
       let data = {
         checkStatus: 6,
         shopName: this.shopName,
-        startTime: this.timer[0] === null ? '' : this.timer[0],
-        endTime: this.timer[1] === null ? '' : this.timer[1],
+        startTime: this.timer[0] === null ? '' : Date.parse(this.timer[0]),
+        endTime: this.timer[1] === null ? '' : Date.parse(this.timer[1]),
         companyName: this.companyName,
         employeeName: this.employeeName,
         pageIndex: 1,

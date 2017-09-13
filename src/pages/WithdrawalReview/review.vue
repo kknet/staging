@@ -92,9 +92,9 @@
 <script>
 // import { userLogin } from '../../api/index'
 import { statusFormatter } from 'common/js/status';
-import axios from 'config/http';
+// import axios from 'config/http';
 import { param } from 'common/js/jsonp';
-import { Message } from 'element-ui';
+// import { Message } from 'element-ui';
 export default {
   data() {
     return {
@@ -151,22 +151,22 @@ export default {
         this.startTime = '';
         this.endTime = '';
       }
-      axios.post('/zsdsys/apply/applyView.json', {
-        orderNo: this.indent,
-        shopName: this.shopName,
-        loadStatus: this.statusValue,
-        employeeName: this.businessName,
-        companyName: this.serveCompany,
-        _startTime: this.startTime,
-        _endTime: this.endTime
-      })
-        .then((res) => {
-          console.log(res.data)
-          this.billList = res.data.list;
-        })
-        .catch((error) => {
-          Message(error)
-        })
+      // axios.post('/zsdsys/apply/applyView.json', {
+      //   orderNo: this.indent,
+      //   shopName: this.shopName,
+      //   loadStatus: this.statusValue,
+      //   employeeName: this.businessName,
+      //   companyName: this.serveCompany,
+      //   _startTime: this.startTime,
+      //   _endTime: this.endTime
+      // })
+      //   .then((res) => {
+      //     console.log(res.data)
+      //     this.billList = res.data.list;
+      //   })
+      //   .catch((error) => {
+      //     Message(error)
+      //   })
     },
     // 跳转至详情
     goDetail(id) {
