@@ -78,6 +78,11 @@ Vue.use(utils)
 export default {
   data() {
     return {
+      param: {
+        pageIndex: 1,
+        pageSize: 10,
+        role: 1
+      },
       accountList: [],
       options: [{
         value: 'manage',
@@ -172,6 +177,7 @@ export default {
     },
     getAccountList(data) {
       accountManage(data).then(res => {
+        console.log(data)
         console.log(res)
         if (res.code === 0) {
           this.accountList = res.list
@@ -215,8 +221,9 @@ export default {
           console.log(res)
           if (res.code === 0) {
             let data = {
-              pageIndex: 1,
-              pageSize: 10
+              pageIndex: this.currentPage,
+              pageSize: 10,
+              role: 1
             }
             this.getAccountList(data)
           } else {
