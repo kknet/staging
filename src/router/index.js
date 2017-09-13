@@ -96,14 +96,14 @@ export default new Router({
           component: AccountManage
         },
         {
-          path: '/securityCompany',
-          name: 'SecurityCompany',
-          component: SecurityCompany
-        },
-        {
           path: '/personInfo',
           name: 'PersonInfo',
           component: PersonInfo
+        },
+        {
+          path: '/securityCompany',
+          name: 'SecurityCompany',
+          component: SecurityCompany
         }
       ]
     }
