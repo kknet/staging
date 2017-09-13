@@ -3,35 +3,42 @@
     <div class="ms-title">后台管理系统</div>
     <div class="ms-login">
       <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="0px" class="demo-ruleForm">
-        <el-form-item prop="username">
-          <el-input v-model="ruleForm.username" placeholder="username"></el-input>
+        <el-form-item prop="adminerName">
+          <el-input v-model="ruleForm.adminerName" placeholder="adminerName"></el-input>
         </el-form-item>
         <el-form-item prop="password">
           <el-input type="password" placeholder="password" v-model="ruleForm.password" @keyup.enter.native="submitForm('ruleForm')"></el-input>
         </el-form-item>
-        <el-form-item prop="password">
-          <el-input placeholder="验证码" v-model="ruleForm.code"></el-input>
+        <el-form-item prop="">
+          <el-input placeholder="验证码" v-model="ruleForm.checkCode" style="width:220px;" @keyup.native="sure($event)"></el-input>
+          <img :src="imgUrl" alt="" @click="img">
         </el-form-item>
+        <p style="font-size:12px;line-height:28px;color:#ff4949;
+                              margin-top:-25px;height:28px;">{{falval}}</p>
         <div class="login-btn">
           <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>
         </div>
-        <p style="font-size:12px;line-height:30px;color:#999;">Tips : 用户名和密码随便填。</p>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
+import { userLogin } from '../../api/index'
+import { ERR_OK } from '../../common/js/config'
 export default {
-  data: function () {
+  data: function() {
     return {
+      imgUrl: '/zsdsys/checkCode.jpg',
       ruleForm: {
-        username: '',
-        password: '',
-        code: ''
+        adminerName: 'hk',
+        password: '123456',
+        checkCode: ''
       },
+      falval: '',
+      myurl: '',
       rules: {
-        username: [
+        adminerName: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [
@@ -40,18 +47,36 @@ export default {
       }
     }
   },
+  created() {
+  },
   methods: {
     submitForm(formName) {
       const self = this
       self.$refs[formName].validate((valid) => {
         if (valid) {
-          localStorage.setItem('ms_username', self.ruleForm.username)
-          self.$router.push('/stageReview')
+          let params = this.ruleForm
+          userLogin(params).then((res) => {
+            console.log(res)
+            if (res.code === ERR_OK) {
+              // localStorage.setItem('ms_username', self.ruleForm.username)
+              // self.$router.push('/stageReview')
+            } else {
+              this.falval = res.error
+            }
+          })
         } else {
           console.log('error submit!!')
           return false
         }
       })
+    },
+    sure(ev) {
+      if (ev.keyCode === 13) {
+        this.submitForm('formName')
+      }
+    },
+    img() {
+      this.imgUrl = '/zsdsys/checkCode.jpg' + '?' + Math.random()
     }
   }
 }
@@ -93,5 +118,10 @@ export default {
 .login-btn button {
   width: 100%;
   height: 36px;
+}
+
+img {
+  float: right;
+  margin-top: 2px;
 }
 </style>

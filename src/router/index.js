@@ -5,6 +5,7 @@ import Home from '../components/Home'
 import stageReview from '../pages/BorrowAudit/stageReview'
 import detailReview from '../pages/BorrowAudit/detailReview'
 import Review from '../pages/WithdrawalReview/review'
+import borrowDetail from '../pages/WithdrawalReview/borrowDetail'
 import Fund from '../pages/FundFlowWater/fund'
 import BorrowRecord from '../pages/BorrowRecord/borrowRecord'
 import BorrowDetail from '../pages/BorrowRecord/borrowDetail'
@@ -13,7 +14,11 @@ import CheckManage from '../pages/CheckManage/checkManage'
 import UserDetail from '../pages/CheckManage/userDetail'
 import DataStatistics from '../pages/DataStatistics/dataStatistics'
 import AccountManage from '../pages/AccountManage/accountManage'
+<<<<<<< HEAD
 import PersonInfo from '../pages/AccountManage/personInfo'
+=======
+import SecurityCompany from '../pages/SecurityCompany/securityCompany'
+>>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
 
 Vue.use(Router)
 
@@ -47,6 +52,11 @@ export default new Router({
           path: '/review',
           name: 'Review',
           component: Review
+        },
+        {
+          path: '/borrowDetail',
+          name: 'borrowDetail',
+          component: borrowDetail
         },
         {
           path: '/fund',
@@ -89,9 +99,15 @@ export default new Router({
           component: AccountManage
         },
         {
+<<<<<<< HEAD
           path: '/personInfo',
           name: 'PersonInfo',
           component: PersonInfo
+=======
+          path: '/securityCompany',
+          name: 'SecurityCompany',
+          component: SecurityCompany
+>>>>>>> c4fcfe194cac1159f3240604d73c05b6b207d58a
         }
       ]
     }
