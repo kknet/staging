@@ -45,7 +45,7 @@
         </div>
         <div class="title">
           <span class="first-span">申请信息</span>
-          <span class="color-blue">查看</span>
+          <span class="color-blue" @click="look">查看</span>
         </div>
         <div class="title">
           <span class="first-span">开户人</span>
@@ -123,6 +123,12 @@ export default {
           console.log(this.detailList)
         }
       })
+    },
+    // 查看
+    look() {
+      let id = this.id
+      this.$router.push('/detailReview?id=' + id)
+      localStorage.setItem('ms_username', 7)
     },
     // 代还款
     repayMoney() {

@@ -32,10 +32,7 @@
       <div class="element">
         <p>服务公司</p>
         <div>
-          <el-select v-model="companyName" placeholder="请选择">
-            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
-          </el-select>
+          <el-input v-model="companyName" placeholder="请输入内容" class="input"></el-input>
         </div>
       </div>
       <div class="element">
@@ -97,17 +94,14 @@ export default {
     return {
       shopName: '',
       options: [{
-        value: '选项1',
-        label: '未审核'
+        value: '5',
+        label: '待审核'
       }, {
-        value: '选项2',
+        value: '7',
         label: '审核通过'
       }, {
-        value: '选项3',
-        label: '审核失败'
-      }, {
-        value: '选项4',
-        label: '否决'
+        value: '6',
+        label: '审核驳回'
       }],
       pageIndex: 1,
       pageSize: 10,
@@ -122,6 +116,7 @@ export default {
   },
   created() {
     this.getval()
+    this._getcompanyList()
   },
   filters: {
     getTime(t) {

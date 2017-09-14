@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div class="logo">后台管理系统</div>
+    <div class="logo">安保分期后台管理系统V1.0</div>
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
@@ -58,6 +58,7 @@ export default {
   float: left;
   width: 250px;
   text-align: center;
+  font-size: 16px;
 }
 
 .user-info {

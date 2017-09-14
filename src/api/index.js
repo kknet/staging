@@ -96,3 +96,7 @@ export const repay = (params) => {
 export const repayMony = (params) => {
   return http.fetchPost('/zsdsys/apply/editStatus.json', params)
 }
+// 借款记录安保公司列表接口
+export const companySelect = (params) => {
+  return http.fetchPost('/zsdsys/securityCompany/securityCompanyView.json', params)
+}
