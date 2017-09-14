@@ -77,14 +77,17 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="item in repayList">
+          <tr v-for="(item,index) in repayList" v-show="repayList" :key="item.key">
             <td>{{item.repayPeriod}}</td>
             <td>{{item.amount}}</td>
             <td>{{item.repayDate}}</td>
-            <td>{{item.status | getStatus}}</td>
+            <td>{{item.status | getStatus(item.overDueDays)}}</td>
             <td>
-              <el-button type="primary" @click="repayMoney">代还款</el-button>
+              <el-button type="primary" @click="repayMoney(index)" v-show="item.overDueDays > 10 &&item.status === 3">代还款</el-button>
             </td>
+          </tr>
+          <tr v-show="!repayList">
+            <td class="noData" colspan="5">暂无数据...</td>
           </tr>
         </tbody>
       </table>
@@ -106,8 +109,8 @@ export default {
     }
   },
   filters: {
-    getStatus(value) {
-      return statusFormatter(value)
+    getStatus(value, n) {
+      return statusFormatter(value, n)
     }
   },
   methods: {
@@ -131,18 +134,21 @@ export default {
       localStorage.setItem('ms_username', 7)
     },
     // 代还款
-    repayMoney() {
+    repayMoney(index) {
+      let applyId = this.repayList[index].applyId
       this.$confirm('是否确认代还款?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
         let params = {
-          id: this.id
+          id: this.id,
+          applyId: applyId
         }
         repayMony(params).then((res) => {
           if (res.code === ERR_OK) {
             this.getDetail(this.id);
+            this.getRepayPaln(this.id)
           }
         })
       }).catch(() => {

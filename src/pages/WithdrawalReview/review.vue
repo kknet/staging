@@ -93,7 +93,7 @@
 </template>
 <script>
 import { applyList } from '../../api/index'
-import { statusFormatter } from 'common/js/status';
+import { statusFormatters } from 'common/js/status';
 import { ERR_OK } from 'common/js/config'
 // import axios from 'config/http';
 import { param } from 'common/js/jsonp';
@@ -146,7 +146,7 @@ export default {
   },
   filters: {
     getStatus(value) {
-      return statusFormatter(value)
+      return statusFormatters(value)
     }
   },
   methods: {

@@ -116,7 +116,6 @@ export default {
   },
   created() {
     this.getval()
-    this._getcompanyList()
   },
   filters: {
     getTime(t) {

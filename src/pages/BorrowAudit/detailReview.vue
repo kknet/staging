@@ -131,6 +131,7 @@
       </span>
     </el-dialog>
     <br/>
+    <button @click="aaaaa"></button>
     <div style="text-align: center;margin-bottom:20px;" v-show="status === '5'|| status === 5">
       <el-button type="primary" class="btn" @click="review" style="width:200px;">审核</el-button>
     </div>
@@ -194,6 +195,9 @@ export default {
           console.log(this.getList[0])
         }
       })
+    },
+    aaaaa() {
+      console.log(localStorage.getItem('ms_username'))
     },
     // 获取结果
     result() {
@@ -285,7 +289,7 @@ export default {
   }
   .anbao {
     background: white;
-    height: 200px;
+    height: 220px;
   }
   .company {
     height: 120px;
