@@ -278,7 +278,7 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-$main_width:700px;
+$main_width:1200px;
 .base {
   width: $main_width;
   .searchCondition {

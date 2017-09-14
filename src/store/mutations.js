@@ -1,7 +1,7 @@
 import * as types from './mutation-types'
-const mutation = {
-  [types.SET_ADDRESS](state, address) {
-    state.address = address
+const mutations = {
+  [types.SET_STATUS](state, getStatus) {
+    state.getStatus = getStatus
   }
 }
-export default mutation
+export default mutations

@@ -31,14 +31,14 @@ export default {
     return {
       imgUrl: '/zsdsys/checkCode.jpg',
       ruleForm: {
-        account: '13958776325',
+        account: '1',
         password: '123456',
         checkCode: ''
       },
       falval: '',
       myurl: '',
       rules: {
-        adminerName: [
+        account: [
           { required: true, message: '请输入用户名', trigger: 'blur' }
         ],
         password: [

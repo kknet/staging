@@ -15,17 +15,21 @@
       </div>
       <div class="element">
         <p>地址</p>
-        <m-address></m-address>
+        <m-address v-on:listenToChildEvent="ssss"></m-address>
         <!-- <v-distpicker></v-distpicker> -->
       </div>
       <div class="btn" @click="search">
         <el-button type="primary">查询</el-button>
       </div>
       <div>
+        <div style="text-align: right;">
+          <el-button @click="addbtn">添加</el-button>
+        </div>
         <table>
           <thead>
             <tr>
               <th>安保公司名称</th>
+              <th>关联ID</th>
               <th>地址</th>
               <th>负责人</th>
               <th>联系电话</th>
@@ -33,19 +37,57 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
+            <tr v-for="(item, index) in getList" :key="item.value" v-show="getList">
               <td>{{item.companyName}}</td>
+              <td>{{item.companyId}}</td>
               <td>{{item.province}}{{item.city}}{{item.area}}{{item.detailAddress}}</td>
               <td>{{item.resPerson}}</td>
               <td>{{item.mobile}}</td>
-              <td>1</td>
+              <td>
+                <el-button type="text" @click="eidt(index)">编辑</el-button>
+                <el-button type="text" @click="forbid(index)">{{item.status | reverseStatus}}</el-button>
+              </td>
             </tr>
-            <tr v-show="getList.length === 0">
+            <tr v-show="!getList">
               <td class="noData" colspan="6">暂无数据...</td>
             </tr>
           </tbody>
         </table>
       </div>
+      <el-dialog :visible.sync="dialogVisible" size="small" style="text-align: left">
+        <div class="title">
+          <span>安保公司名称　　　</span>
+          <el-input v-model="companyName" placeholder="请输入安保公司名称" style="width:200px;"></el-input>
+        </div>
+        <div class="title" v-show="!addeidt">
+          <span>关联ID　　　　　　</span>
+          <el-input v-model="companyId" placeholder="请输入内容" style="width:200px;"></el-input>
+        </div>
+        <div class="title" v-show="addeidt">
+          <span>关联ID　　　　　　</span>
+          <span>{{id}}</span>
+        </div>
+        <div class="title">
+          <span>地址　　　　　　　</span>
+          <m-address v-on:listenToChildEvent="baddress" style="display:inline-block"></m-address>
+        </div>
+        <div class="title">
+          <span>　　　　　　　　&nbsp&nbsp&nbsp</span>
+          <el-input v-model="detailAddress" placeholder="请输入内容" style="width:200px;"></el-input>
+        </div>
+        <div class="title">
+          <span>负责人　　　　　　</span>
+          <el-input v-model="resPerson" placeholder="请输入内容" style="width:200px;"></el-input>
+        </div>
+        <div>
+          <span>联系电话　　　　　</span>
+          <el-input v-model="mobile" placeholder="请输入内容" style="width:200px;"></el-input>
+        </div>
+        <br/>
+        <div style="text-align: center;">
+          <el-button @click="add">添加</el-button>
+        </div>
+      </el-dialog>
       <div class="block" style="margin-top:20px" v-show="showPageTag">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper" :total="total">
         </el-pagination>
@@ -54,10 +96,9 @@
   </div>
 </template>
 <script>
-import { companyList } from '../../api/index'
+import { companyList, addCompany, eidtCompany } from '../../api/index'
 import { ERR_OK } from '../../common/js/config'
 import mAddress from 'components/Address.vue'
-import { mapGetters } from 'vuex'
 // import { userLogin } from '../../api/index'
 // import { statusFormatter } from 'common/js/status';
 // import axios from 'config/http';
@@ -74,26 +115,29 @@ export default {
       company: '',
       getList: [],
       showPageTag: false,
+      dialogVisible: false,
+      addeidt: false,
       pageIndex: 1,
       pageSize: 10,
-      total: 1
+      total: 1,
+      params: {},
+      companyName: '',
+      companyId: '',
+      detailAddress: '',
+      resPerson: '',
+      mobile: '',
+      province: '',
+      city: '',
+      area: '',
+      id: ''
     }
   },
   created() {
     this._getList()
   },
-  computed: {
-    ...mapGetters([
-      'address'
-    ])
-  },
   methods: {
     _getList() {
-      let params = {
-        companyName: this.company,
-        province: this.value
-
-      }
+      let params = this.params
       companyList(params).then((res) => {
         console.log(res)
         if (res.code === ERR_OK) {
@@ -107,9 +151,91 @@ export default {
         }
       })
     },
+    ssss(data) {
+      console.log(data)
+      this.params = {
+        companyName: this.company,
+        province: data.province,
+        city: data.city,
+        area: data.area
+      }
+    },
+    // 弹窗地址
+    baddress(data) {
+      this.province = data.province
+      this.city = data.city
+      this.area = data.area
+    },
     // 查询
     search() {
+      this.params = {
+        companyName: this.company,
+        province: '',
+        city: '',
+        area: ''
+      }
       this._getList()
+    },
+    // 启用禁用
+    forbid(index) {
+      this.$confirm('是否继续操作?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        let companyId = this.getList[index].companyId
+        let status = this.getList[index].status === 0 ? 1 : 0
+        let params = {
+          status: status,
+          companyId: companyId
+        }
+        eidtCompany(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this._getList()
+          }
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        })
+      })
+    },
+    addbtn() {
+      this.addeidt = false
+      this.dialogVisible = true
+    },
+    eidt(index) {
+      this.id = this.getList[index].companyId
+      this.addeidt = true
+      this.dialogVisible = true
+    },
+    // 添加
+    add() {
+      let params = {
+        companyName: this.companyName,
+        resPerson: this.resPerson,
+        mobile: this.mobile,
+        province: this.province,
+        city: this.city,
+        area: this.area,
+        detailAddress: this.detailAddress
+      }
+      if (this.addeidt) {
+        addCompany(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this._getList()
+            this.dialogVisible = false
+          }
+        })
+      } else {
+        eidtCompany(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this._getList()
+            this.dialogVisible = false
+          }
+        })
+      }
     },
     // 分页
     handleSizeChange(val) {
@@ -117,7 +243,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.pageIndex = val
-      this.getval()
+      this._getList()
     }
   }
 }
@@ -158,6 +284,9 @@ export default {
   }
   .btn {
     display: inline-block;
+  }
+  .title {
+    margin-bottom: 20px;
   }
 }
 </style>

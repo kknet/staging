@@ -11,7 +11,7 @@
     <div class="base">
       <div style="height:30px;">
         <h2 style="float:left">安保套餐信息</h2>
-        <h4 style="float:right;margin-right:30px;"></h4>
+        <h4 style="float:right;margin-right:30px;" v-if="status !== 5">{{statusAfter |getStatus}}{{failReason|getter}}</h4>
       </div>
       <div class="anbao">
         <div class="null"></div>
@@ -52,9 +52,9 @@
           <span>{{getList.shopName}}</span>
         </div>
         <!-- <div class="title">
-                                                          <span>营业执照店名　　　　</span>
-                                                          <span>{{getList.startDate}}</span>
-                                                        </div> -->
+                                                                                  <span>营业执照店名　　　　</span>
+                                                                                  <span>{{getList.startDate}}</span>
+                                                                                </div> -->
         <div class="title">
           <span>店铺ID　　　　</span>
           <span>{{getList.shopId}}</span>
@@ -131,14 +131,14 @@
       </span>
     </el-dialog>
     <br/>
-    <div style="text-align: center;margin-bottom:20px;" v-show="status==5">
+    <div style="text-align: center;margin-bottom:20px;" v-show="status === '5'|| status === 5">
       <el-button type="primary" class="btn" @click="review" style="width:200px;">审核</el-button>
     </div>
   </div>
 </template>
 <script>
 import { ERR_OK } from '../../common/js/config'
-import { checkView, getListImg, insure, result } from '../../api/index'
+import { checkView, getListImg, insure, result, checkResult } from '../../api/index'
 export default {
   data() {
     return {
@@ -158,15 +158,28 @@ export default {
       imgUrl2: '',
       imgUrl3: '',
       imgUrl4: '',
-      imgUrl5: ''
+      imgUrl5: '',
+      statusAfter: '',
+      failReason: ''
+    }
+  },
+  filters: {
+    getStatus(t) {
+      return t === 5 ? '待审核' : t === 6 ? '审核驳回' : t === 7 ? '审核通过' : ''
+    },
+    getter(t) {
+      if (t) {
+        return ` : ${t}`
+      }
     }
   },
   created() {
     this.id = this.$route.query.id
-    this.status = this.$route.query.status
+    this.status = localStorage.getItem('ms_username')
     console.log(this.status)
     this.getval()
     this.getImg()
+    this.result()
     console.log(this.id)
   },
   methods: {
@@ -179,6 +192,20 @@ export default {
         if (res.code === ERR_OK) {
           this.getList = res.list[0]
           console.log(this.getList[0])
+        }
+      })
+    },
+    // 获取结果
+    result() {
+      let params = {
+        applyId: this.id
+      }
+      checkResult(params).then((res) => {
+        if (res.code === ERR_OK) {
+          if (res.list.length > 0) {
+            this.failReason = res.list[0].failReason
+            this.statusAfter = res.list[0].statusAfter
+          }
         }
       })
     },
@@ -223,7 +250,10 @@ export default {
           let data = {}
           result(data).then(res => {
             if (res.code === ERR_OK) {
-              console.log(res)
+              this.result()
+              this.status = this.statusAfter
+              localStorage.setItem('ms_username', this.value)
+              window.location.reload()
             }
           })
         } else {

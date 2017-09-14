@@ -1,4 +1,4 @@
 const state = {
-  address: {}
+  getStatus: {}
 }
 export default state

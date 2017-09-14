@@ -80,18 +80,21 @@
             <td class="noData" colspan="8">暂无数据...</td>
           </tr>
         </tbody>
-        <button class="export" @click="exportList">导出</button>
+        <button class="export" @click="exportList">
+          <a :href="link">导出</a>
+        </button>
       </table>
-      <div class="block" v-show="billList.length > 0">
-        <el-pagination layout="prev, pager, next, jumper" :total="10">
+      <div class="block" style="margin-top:20px" v-show="showPageTag">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="pageIndex" :page-size="pageSize" layout="prev, pager, next, jumper" :total="total">
         </el-pagination>
       </div>
     </div>
   </div>
 </template>
 <script>
-// import { userLogin } from '../../api/index'
+import { applyList } from '../../api/index'
 import { statusFormatter } from 'common/js/status';
+import { ERR_OK } from 'common/js/config'
 // import axios from 'config/http';
 import { param } from 'common/js/jsonp';
 // import { Message } from 'element-ui';
@@ -125,6 +128,11 @@ export default {
       billList: [],
       startTime: '',
       endTime: '',
+      link: '',
+      pageIndex: 1,
+      pageSize: 10,
+      total: 1,
+      showPageTag: false,
       params: {
         orderNo: this.indent,
         shopName: this.shopName,
@@ -151,26 +159,38 @@ export default {
         this.startTime = '';
         this.endTime = '';
       }
-      // axios.post('/zsdsys/apply/applyView.json', {
-      //   orderNo: this.indent,
-      //   shopName: this.shopName,
-      //   loadStatus: this.statusValue,
-      //   employeeName: this.businessName,
-      //   companyName: this.serveCompany,
-      //   _startTime: this.startTime,
-      //   _endTime: this.endTime
-      // })
-      //   .then((res) => {
-      //     console.log(res.data)
-      //     this.billList = res.data.list;
-      //   })
-      //   .catch((error) => {
-      //     Message(error)
-      //   })
+      let params = {
+        orderNo: this.indent,
+        shopName: this.shopName,
+        loadStatus: this.statusValue,
+        employeeName: this.businessName,
+        companyName: this.serveCompany,
+        _startTime: this.startTime,
+        _endTime: this.endTime
+      }
+      applyList(params).then((res) => {
+        if (res.code === ERR_OK) {
+          this.billList = res.list
+          if (this.total <= this.pageSize) {
+            this.showPageTag = false
+          } else {
+            this.showPageTag = true
+          }
+        }
+      })
     },
     // 跳转至详情
     goDetail(id) {
-      this.$router.push({name: 'borrowDetail', params: { id }})
+      // this.$router.push({ name: 'borrowDetail', params: { id } })
+      this.$router.push('/borrowDetail?id=' + id)
+    },
+    // 分页
+    handleSizeChange(val) {
+      console.log(`每页 ${val} 条`)
+    },
+    handleCurrentChange(val) {
+      this.pageIndex = val
+      this.getval()
     },
     // 点击导出
     exportList() {
@@ -190,7 +210,7 @@ export default {
         _startTime: this.startTime,
         _endTime: this.endTime
       }
-      window.location.href = '/zsdsys/apply/list/export.json?' + param(data)
+      this.link = '/zsdsys/apply/list/export.json?' + param(data)
     }
   },
   created() {
