@@ -56,9 +56,14 @@ export default {
         if (valid) {
           let params = this.ruleForm
           userLogin(params).then((res) => {
+            console.log(params)
             console.log(res)
             if (res.code === ERR_OK) {
               // localStorage.setItem('ms_username', self.ruleForm.username)
+              sessionStorage.setItem('adminerName', res.obj.adminerName)
+              sessionStorage.setItem('account', res.obj.account)
+              sessionStorage.setItem('role', res.obj.role)
+              sessionStorage.setItem('id', res.obj.id)
               self.$router.push('/stageReview')
             } else {
               this.falval = res.error

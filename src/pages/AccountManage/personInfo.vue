@@ -7,19 +7,17 @@
           <tr>
             <th>姓名</th>
             <th>账号</th>
-            <th>手机号</th>
             <th>角色</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>兑换人</td>
-            <td>账号</td>
-            <td>手机号</td>
-            <td>角色</td>
+          <tr v-for="item in infoList" :key="item.id">
+            <td>{{item.adminerName}}</td>
+            <td>{{item.account}}</td>
+            <td>{{item.role | role}}</td>
             <td>
-              <el-button size="small" type="primary" @click="openModifyPasswordBox">修改密码</el-button>
+              <el-button size="small" type="primary" @click="openModifyPasswordBox(item.id,item.account)">修改密码</el-button>
             </td>
           </tr>
         </tbody>
@@ -37,24 +35,22 @@
           <el-input v-model="modifyPasswordForm.newPassword2" placeholder="再次确认密码"></el-input>
         </el-form-item>
         <el-form-item label="  " prop="btn">
-          <el-button style="width:173px" type="primary" @click="submitModifyForm('modifyPasswordForm')">添加</el-button>
+          <el-button style="width:173px" type="primary" @click="submitModifyForm('modifyPasswordForm')">确认</el-button>
         </el-form-item>
       </el-form>
       <!-- <div class="footer">
-                <el-button type="primary" @click="submitAddForm('addForm')">添加</el-button>
-              </div> -->
+                    <el-button type="primary" @click="submitAddForm('addForm')">添加</el-button>
+                  </div> -->
     </el-dialog>
   </div>
 </template>
 <script>
 import breadcrumb from '../../components/Breadcrumb'
+import { personInfo, modifyPassword } from '../../api/index'
 export default {
   data() {
     return {
-      options: [{
-        value: 'manage',
-        label: '管理员'
-      }],
+      infoList: '',
       value: '',
       breadcrumbText: [{
         title: '当前位置',
@@ -69,7 +65,9 @@ export default {
       modifyPasswordForm: {
         oldPassword: '',
         newPassword: '',
-        newPassword2: ''
+        newPassword2: '',
+        id: '',
+        account: ''
       },
       dialogVisible: false,
       rules: {
@@ -95,13 +93,48 @@ export default {
       }
     }
   },
+  created() {
+    this.getPersonInfo()
+  },
   methods: {
-    openModifyPasswordBox(account) {
+    getPersonInfo() {
+      personInfo(null).then(res => {
+        console.log(res)
+        if (res.code === 0) {
+          this.infoList = res.list
+          console.log(this.infoList)
+        } else {
+          this.$message(res.error)
+        }
+      }).catch(res => {
+        this.$message('系统故障或没有网络，错误代码为：' + res)
+      })
+    },
+    openModifyPasswordBox(id, account) {
       this.dialogVisible = true
+      this.modifyPasswordForm.id = id
+      this.modifyPasswordForm.account = account
     },
     submitModifyForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          let parmas = {
+            oldPassword: this.modifyPasswordForm.oldPassword,
+            password: this.modifyPasswordForm.newPassword,
+            againPassword: this.modifyPasswordForm.newPassword2,
+            id: this.modifyPasswordForm.id,
+            account: this.modifyPasswordForm.account
+          }
+          modifyPassword(parmas).then(res => {
+            console.log(res)
+            if (res.code === 0) {
+              this.$message('修改成功！')
+            } else {
+              this.$message(res.error)
+            }
+          }).catch(res => {
+            this.$message('系统故障或没有网络，错误代码为：' + res)
+          })
           this.dialogVisible = false
         } else {
           console.log('error submit!!')
@@ -128,7 +161,7 @@ export default {
 <style lang="scss">
 .accountManage {
   .base {
-    width: 700px;
+    width: 1200px;
     .btnWrapper {
       .searchBtn {
         width: 94px;

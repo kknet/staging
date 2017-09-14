@@ -1,8 +1,20 @@
 import http from './public'
 // 登录接口
 export const userLogin = (params) => {
-  console.log(params)
   return http.fetchPost('/zsdsys/login.json', params)
+}
+// 修改密码接口
+export const modifyPassword = (params) => {
+  console.log(params)
+  return http.fetchPost('/zsdsys/admin/editPassword.json', params)
+}
+// 重置密码接口
+export const resetPassword = (params) => {
+  return http.fetchPost('/zsdsys/admin/resetPassword.json', params)
+}
+// 账户详情接口(个人信息接口)
+export const personInfo = (params) => {
+  return http.fetchPost('/zsdsys/admin/currentAdminer.json', params)
 }
 // 分期审核列表获取接口
 export const checkView = (params) => {

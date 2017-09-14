@@ -4,8 +4,8 @@
     <div class="user-info">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
-          <i class="el-icon-star-on"></i>
-          <span style="margin-left:10px;margin-right:10px">{{role}} {{name}}</span>
+          <img src="../assets/user.png" class="user-icon">
+          <span style="margin-left:8px;margin-right:10px">{{role}} {{name}}</span>
           <i class="el-icon-caret-bottom"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
@@ -20,8 +20,8 @@
 export default {
   data() {
     return {
-      role: '管理员',
-      name: 'linxin'
+      role: '',
+      name: sessionStorage.getItem('adminerName')
     }
   },
   // computed: {
@@ -39,10 +39,21 @@ export default {
         this.$router.push('/personInfo')
       }
     }
+  },
+  created() {
+    this.role = sessionStorage.getItem('role')
+    if (this.role === '1') {
+      this.role = '管理员'
+      console.log('管理员')
+    } else if (this.role === '0') {
+      this.role = '超级管理员'
+    }
+    console.log('role:')
+    console.log(sessionStorage.getItem('role'))
   }
 }
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .header {
   position: relative;
   box-sizing: border-box;
@@ -66,6 +77,9 @@ export default {
   padding-right: 50px;
   font-size: 16px;
   color: #fff;
+  .user-icon {
+    vertical-align: middle;
+  }
 }
 
 .user-info .el-dropdown-link {

@@ -24,7 +24,7 @@
             <td>{{item.adminerStatus | adminerStatus}}</td>
             <td style="width: 200px">
               <el-button size="small" type="primary" @click="openForbiddenBox(item.id, item.adminerStatus, item.adminerName)">{{item.adminerStatus | reverseStatus}}</el-button>
-              <el-button size="small" type="primary" @click="openSureResetBox('514917919')">重置密码</el-button>
+              <el-button size="small" type="primary" @click="openSureResetBox(item.id, item.account)">重置密码</el-button>
               <el-button size="small" type="primary" @click="openEditBox(item.id, item.adminerName, item.account)">编辑</el-button>
             </td>
           </tr>
@@ -70,11 +70,9 @@
   </div>
 </template>
 <script>
-import Vue from 'vue'
 import breadcrumb from '../../components/Breadcrumb'
-import utils from '../../common/js/utils'
-import { accountManage, addManage, forbiddenToggleAdmin, editAccount } from '../../api/index'
-Vue.use(utils)
+import { accountManage, addManage, forbiddenToggleAdmin, editAccount, resetPassword } from '../../api/index'
+
 export default {
   data() {
     return {
@@ -85,7 +83,7 @@ export default {
       },
       accountList: [],
       options: [{
-        value: 'manage',
+        value: '1',
         label: '管理员'
       }],
       value: '',
@@ -99,7 +97,7 @@ export default {
       addForm: {
         name: '张三',
         phone: '13912345678',
-        type: '1'
+        type: ''
       },
       editForm: {
         name: '',
@@ -118,7 +116,7 @@ export default {
         name:
         [
           { required: true, message: '请输入姓名', trigger: 'blur' },
-          { min: 1, max: 5, message: '长度在 1 到 5 个字符', trigger: 'blur' }
+          { min: 1, max: 12, message: '长度在 1 到 12 个字符', trigger: 'blur' }
         ],
         phone:
         [
@@ -143,12 +141,7 @@ export default {
     }
   },
   created() {
-    let data = {
-      pageIndex: 1,
-      pageSize: 10,
-      role: 1
-    }
-    this.getAccountList(data)
+    this.getAccountList(this.param)
   },
   methods: {
     addManageEvent() {
@@ -237,15 +230,27 @@ export default {
         })
       })
     },
-    openSureResetBox(account) {
+    openSureResetBox(id, account) {
       this.$confirm(`此操作将重置${account}的密码, 是否继续?`, '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$message({
-          type: 'success',
-          message: '重置成功!'
+        let data = {
+          adminerId: id,
+          account: account
+        }
+        resetPassword(data).then(res => {
+          if (res.code === 0) {
+            this.$message({
+              type: 'success',
+              message: '重置成功!'
+            })
+          } else {
+            this.$message(res.error)
+          }
+        }).catch(res => {
+          this.$message(res.error)
         })
       }).catch(() => {
         this.$message({
@@ -333,7 +338,7 @@ export default {
 <style lang="scss">
 .accountManage {
   .base {
-    width: 700px;
+    width: 1200px;
     .btnWrapper {
       .searchBtn {
         width: 94px;
