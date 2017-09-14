@@ -338,7 +338,7 @@ export default {
 <style lang="scss">
 .accountManage {
   .base {
-    width: 1200px;
+    width: 800px;
     .btnWrapper {
       .searchBtn {
         width: 94px;
