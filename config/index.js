@@ -23,17 +23,17 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8080,
+    port: 8082,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/zsdsys':{
-        target:'http://192.168.18.170:8061',
+      '/zsdsys': {
+        target: 'http://192.168.18.170:8061',
         // target:'http://192.168.18.178:3000',
-        changeOrigin:true,
-        pathRewrite:{
-            '^/zsdsys':''
+        changeOrigin: true,
+        pathRewrite: {
+          '^/zsdsys': ''
         }
       }
     },

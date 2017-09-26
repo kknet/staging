@@ -29,7 +29,7 @@
         </div>
       </div>
       <div class="element">
-        <p>申请时间</p>
+        <p>借款时间</p>
         <div>
           <el-date-picker v-model="chooseTime" type="daterange" format="yyyy-MM-dd" placeholder="选择日期范围">
           </el-date-picker>
@@ -56,7 +56,7 @@
             <th>订单编号</th>
             <th>店名</th>
             <th>借款金额（元）</th>
-            <th>申请时间</th>
+            <th>借款时间</th>
             <th>业务员姓名</th>
             <th>服务公司</th>
             <th>状态</th>
@@ -68,7 +68,7 @@
             <td>{{item.orderNo}}</td>
             <td>{{item.shopName}}</td>
             <td>{{item.amount}}</td>
-            <td>{{item.dealTime}}</td>
+            <td>{{item.dealTime |getTime}}</td>
             <td>{{item.employeeName}}</td>
             <td>{{item.companyName}}</td>
             <td>{{item.loadStatus | getStatus}}</td>
@@ -97,6 +97,7 @@ import { statusFormatters } from 'common/js/status';
 import { ERR_OK } from 'common/js/config'
 // import axios from 'config/http';
 import { param } from 'common/js/jsonp';
+import { format } from '../../common/js/times'
 // import { Message } from 'element-ui';
 export default {
   data() {
@@ -147,6 +148,11 @@ export default {
   filters: {
     getStatus(value) {
       return statusFormatters(value)
+    },
+    getTime(t) {
+      if (t) {
+        return format(t)
+      }
     }
   },
   methods: {
@@ -160,6 +166,8 @@ export default {
         this.endTime = '';
       }
       let params = {
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize,
         orderNo: this.indent,
         shopName: this.shopName,
         loadStatus: this.statusValue,
@@ -171,6 +179,7 @@ export default {
       applyList(params).then((res) => {
         if (res.code === ERR_OK) {
           this.billList = res.list
+          this.total = res.count
           if (this.total <= this.pageSize) {
             this.showPageTag = false
           } else {
@@ -190,7 +199,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.pageIndex = val
-      this.getval()
+      this.getBillList()
     },
     // 点击导出
     exportList() {

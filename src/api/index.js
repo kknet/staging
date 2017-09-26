@@ -20,6 +20,10 @@ export const personInfo = (params) => {
 export const checkView = (params) => {
   return http.fetchPost('/zsdsys/apply/checkView.json', params)
 }
+// 分期审详情获取列表
+export const checkViewDetail = (params) => {
+  return http.fetchPost('/zsdsys/apply/checkViewDetail.json', params)
+}
 // 分期审核结果
 export const checkResult = (params) => {
   return http.fetchPost('/zsdsys/apply/checkResult.json', params)
@@ -98,7 +102,7 @@ export const applyList = (params) => {
 }
 // 借款记录点击详情,借款信息接口
 export const applyDetail = (params) => {
-  return http.fetchPost('/zsdsys/apply/checkView.json', params)
+  return http.fetchPost('/zsdsys/apply/applyViewDetail.json', params)
 }
 // 借款记录还款计划接口
 export const repay = (params) => {

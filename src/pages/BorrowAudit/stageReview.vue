@@ -62,10 +62,10 @@
           <tr v-for="(item, index) in getList" :key="item.value" v-show="getList.length > 0">
             <td>{{item.orderNo}}</td>
             <td>{{item.shopName}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.amount/100}}</td>
             <td>{{item.applyTime|getTime}}</td>
             <td>{{item.employeeName}}</td>
-            <td>{{item.employeeName}}</td>
+            <td>{{item.companyName}}</td>
             <td>{{item.checkStatus|getStatus}}</td>
             <td>
               <el-button type="primary" @click="review(index)" v-show="item.checkStatus ===5">审核</el-button>
@@ -134,8 +134,8 @@ export default {
         _endTime: this.timer[1] ? Date.parse(this.timer[1]) : '',
         companyName: this.companyName,
         employeeName: this.employeeName,
-        pageIndex: 1,
-        pageSize: 10
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize
       }
       checkView(params).then(res => {
         console.log(res)
@@ -158,6 +158,7 @@ export default {
       console.log(`每页 ${val} 条`)
     },
     handleCurrentChange(val) {
+      console.log(val)
       this.pageIndex = val
       this.getval()
     },
@@ -165,7 +166,7 @@ export default {
     review(index) {
       let id = this.getList[index].id
       let status = this.getList[index].checkStatus
-      this.$router.push('/detailReview?id=' + id)
+      this.$router.push('/detailReview?id=' + id + '&status=' + status)
       localStorage.setItem('ms_username', status)
       this.setStatus()
     },
@@ -188,7 +189,7 @@ export default {
 .base {
   table {
     border: 1px solid #e1e6ef;
-    width: 1200px;
+    width: 1100px;
     margin-top: 30px;
     thead {
       background-color: #e1e6ef;

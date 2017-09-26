@@ -17,7 +17,7 @@
         </div>
         <div class="title">
           <span class="first-span">店主</span>
-          <span v-if="detailList">{{detailList.nameame}}</span>
+          <span v-if="detailList">{{detailList.name}}</span>
         </div>
         <div class="title">
           <span class="first-span">借款金额</span>
@@ -29,11 +29,11 @@
         </div>
         <div class="title">
           <span class="first-span">生成时间</span>
-          <span v-if="detailList">{{detailList.updated}}</span>
+          <span v-if="detailList">{{detailList.updated |getTime}}</span>
         </div>
         <div class="title">
           <span class="first-span">借款时间</span>
-          <span v-if="detailList">{{detailList.dealTime}}</span>
+          <span v-if="detailList">{{detailList.dealTime |getTime}}</span>
         </div>
         <div class="title">
           <span class="first-span">订单号</span>
@@ -60,7 +60,11 @@
           <span v-if="detailList">{{detailList.bankCardNo}}</span>
         </div>
         <div>
-          <div></div>
+          <div><a :href="imgUrl1" target="_blank">借款合同</a></div>
+          <div><a :href="imgUrl2" target="_blank">付款委托与确认书</a></div>
+          <div><a :href="imgUrl3" target="_blank">个人信息查询授权书</a></div>
+          <div><a :href="imgUrl4" target="_blank">委托代理确认书</a></div>
+          <div><a :href="imgUrl5" target="_blank">担保合同</a></div>
           <div></div>
           <div></div>
         </div>
@@ -99,18 +103,30 @@
 import { applyDetail, repay, repayMony } from '../../api/index'
 import { statusFormatter } from 'common/js/status'
 import { ERR_OK } from 'common/js/config'
+import { format } from '../../common/js/times'
 // import { Message } from 'element-ui';
 export default {
   data() {
     return {
       detailList: {},
       repayList: [],
-      id: ''
+      id: '',
+      urlList: [],
+      imgUrl1: '',
+      imgUrl2: '',
+      imgUrl3: '',
+      imgUrl4: '',
+      imgUrl5: ''
     }
   },
   filters: {
     getStatus(value, n) {
       return statusFormatter(value, n)
+    },
+    getTime(t) {
+      if (t) {
+        return format(t)
+      }
     }
   },
   methods: {
@@ -123,7 +139,25 @@ export default {
         if (res.code === ERR_OK) {
           console.log(res)
           this.detailList = res.list[0]
-          console.log(this.detailList)
+          let urlList = res.obj.contractUrl
+          console.log(urlList)
+          for (let k of urlList) {
+            if (k.contractType === 1) {
+              this.imgUrl1 = k.viewpfdUrl
+            }
+            if (k.contractType === 2) {
+              this.imgUrl2 = k.viewpfdUrl
+            }
+            if (k.contractType === 3) {
+              this.imgUrl3 = k.viewpfdUrl
+            }
+            if (k.contractType === 4) {
+              this.imgUrl4 = k.viewpfdUrl
+            }
+            if (k.contractType === 5) {
+              this.imgUrl5 = k.viewpfdUrl
+            }
+          }
         }
       })
     },

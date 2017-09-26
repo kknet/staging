@@ -23,4 +23,7 @@ export default {
     width: 370px;
   }
 }
+.el-button+.el-button{
+  margin-left: 0px;
+}
 </style>

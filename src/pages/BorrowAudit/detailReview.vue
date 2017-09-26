@@ -4,8 +4,8 @@
       <el-breadcrumb separator="/">
         <el-breadcrumb-item>当前位置</el-breadcrumb-item>
         <el-breadcrumb-item>分期审核</el-breadcrumb-item>
-        <el-breadcrumb-item v-if="false">审核</el-breadcrumb-item>
-        <el-breadcrumb-item>详情</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="sureval === 5">审核</el-breadcrumb-item>
+        <el-breadcrumb-item v-if="sureval !== 5">详情</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="base">
@@ -17,7 +17,7 @@
         <div class="null"></div>
         <div class="title">
           <span>套餐金额　　　　</span>
-          <span>{{getList.amount}}</span>
+          <span>{{getList.amount/100}}</span>
         </div>
         <div class="title">
           <span>合同编号　　　　</span>
@@ -25,19 +25,19 @@
         </div>
         <div class="title">
           <span>安保期限　　　　</span>
-          <span>{{getList.startDate}} - {{getList.endDate}}</span>
+          <span>{{getList.startDate}} 至 {{getList.endDate}}</span>
         </div>
         <div class="title">
           <span>申请时间　　　　</span>
-          <span>{{getList.applyTime}}</span>
+          <span>{{getList.applyTime |getTime}}</span>
+        </div>
+         <div class="title">
+          <span>初审时间　　　　</span>
+          <span>{{getList.firstCheckTime |getTime}}</span>
         </div>
         <div class="title" v-show="status == 7">
           <span>复审时间　　　　</span>
-          <span>{{getList.applyTime}}</span>
-        </div>
-        <div class="title">
-          <span>初审时间　　　　</span>
-          <span>{{getList.firstCheckTime}}</span>
+          <span>{{getList.secondCheckTime |getTime}}</span>
         </div>
         <div class="title">
           <span>订单号　　　　　</span>
@@ -52,27 +52,27 @@
           <span>{{getList.shopName}}</span>
         </div>
         <!-- <div class="title">
-                                                                                  <span>营业执照店名　　　　</span>
-                                                                                  <span>{{getList.startDate}}</span>
-                                                                                </div> -->
+                                                                                    <span>营业执照店名　　　　</span>
+                                                                                    <span>{{getList.startDate}}</span>
+                                                                                  </div> -->
         <div class="title">
-          <span>店铺ID　　　　</span>
-          <span>{{getList.shopId}}</span>
+          <span>店铺编号　　　　</span>
+          <span>{{getList.shopNo}}</span>
         </div>
         <div class="title">
           <span>店主姓名　　　　</span>
           <span>{{getList.name}}</span>
         </div>
         <div class="title">
-          <span>店主手机号码　　　　</span>
+          <span>店主手机号码　　</span>
           <span>{{getList.mobile}}</span>
         </div>
         <div class="title">
-          <span>店主身份证号　　　　</span>
+          <span>店主身份证号　　</span>
           <span>{{getList.idCardNo}}</span>
         </div>
         <div class="title">
-          <span>实际经营地址　　　　</span>
+          <span>实际经营地址　　</span>
           <span>{{getList.province}}{{getList.city}}{{getList.area}}{{getList.address}}</span>
         </div>
       </div>
@@ -84,25 +84,33 @@
           <span>{{getList.companyName}}</span>
         </div>
         <div class="title">
-          <span>业务员　　　　</span>
-          <span>{{getList.employeeName}}</span>
+          <span>业务员　　　　　</span>
+          <span>{{getList.employeeName}}/{{getList.eMobile}}</span>
         </div>
         <div class="title">
-          <span>审核员　　　　</span>
-          <span>{{getList.firstcheckName}}</span>
+          <span>审核员　　　　　</span>
+          <span>{{reviews.employeeName}}/{{reviews.mobile}}</span>
         </div>
       </div>
       <h2>照片信息</h2>
       <div class="anbao pic">
         <div class="null"></div>
         <div class="imgshow">
+          <div>门头照</div>
+          <img :src="imgUrl6" alt="" style="height:180px;width:180px;">
+        </div>
+        <div class="imgshow">
+          <div>店内照</div>
+          <img :src="imgUrl7" alt="" style="height:180px;width:180px;">
+        </div>
+        <div class="imgshow">
           <div>店主与业务员合影</div>
           <img :src="imgUrl1" alt="" style="height:180px;width:180px;">
         </div>
-        <div class="imgshow">
-          <div>安保合同照片</div>
-          <img :src="imgUrl2" alt="" style="height:180px;width:180px;">
-        </div>
+        <!-- <div class="imgshow">
+            <div>安保合同照片</div>
+            <img :src="imgUrl2" alt="" style="height:180px;width:180px;">
+          </div> -->
         <div class="imgshow">
           <div>营业执照照片</div>
           <img :src="imgUrl3" alt="" style="height:180px;width:180px;">
@@ -114,6 +122,12 @@
         <div class="imgshow">
           <div>身份证反面</div>
           <img :src="imgUrl5" alt="" style="height:180px;width:180px;">
+        </div>
+      </div>
+      <div class="anbao pic">
+        <div class="imgshow" v-for="(item, index) in objList":key="item.key">
+          <div>安保合同照片{{index+1}}</div>
+          <img :src="item.path" alt="" style="height:180px;width:180px;">
         </div>
       </div>
     </div>
@@ -131,7 +145,6 @@
       </span>
     </el-dialog>
     <br/>
-    <button @click="aaaaa"></button>
     <div style="text-align: center;margin-bottom:20px;" v-show="status === '5'|| status === 5">
       <el-button type="primary" class="btn" @click="review" style="width:200px;">审核</el-button>
     </div>
@@ -139,7 +152,8 @@
 </template>
 <script>
 import { ERR_OK } from '../../common/js/config'
-import { checkView, getListImg, insure, result, checkResult } from '../../api/index'
+import { checkViewDetail, getListImg, insure, result, checkResult } from '../../api/index'
+import { format } from '../../common/js/times'
 export default {
   data() {
     return {
@@ -160,8 +174,13 @@ export default {
       imgUrl3: '',
       imgUrl4: '',
       imgUrl5: '',
+      imgUrl6: '',
+      imgUrl7: '',
       statusAfter: '',
-      failReason: ''
+      sureval: '',
+      failReason: '',
+      objList: [],
+      reviews: {}
     }
   },
   filters: {
@@ -172,10 +191,16 @@ export default {
       if (t) {
         return ` : ${t}`
       }
+    },
+    getTime(t) {
+      if (t) {
+        return format(t)
+      }
     }
   },
   created() {
     this.id = this.$route.query.id
+    this.sureval = parseInt(this.$route.query.status)
     this.status = localStorage.getItem('ms_username')
     console.log(this.status)
     this.getval()
@@ -188,11 +213,12 @@ export default {
       let params = {
         id: this.id
       }
-      checkView(params).then(res => {
+      checkViewDetail(params).then(res => {
         console.log(res)
         if (res.code === ERR_OK) {
           this.getList = res.list[0]
-          console.log(this.getList[0])
+          this.reviews = res.obj
+          console.log(res)
         }
       })
     },
@@ -216,11 +242,15 @@ export default {
     // 获取图片信息
     getImg() {
       let params = {
+        applyId: this.id
       }
       getListImg(params).then(res => {
         if (res.code === ERR_OK) {
           this.imgList = res.list
+          this.objList = res.obj.securityPactUrl
+          console.log(5555)
           console.log(this.imgList)
+          console.log(5555)
           for (let k of this.imgList) {
             if (k.imageType === 1) {
               this.imgUrl1 = k.path
@@ -229,13 +259,19 @@ export default {
               this.imgUrl2 = k.path
             }
             if (k.imageType === 3) {
-              this.imgUr3 = k.path
+              this.imgUrl3 = k.path
             }
             if (k.imageType === 4) {
               this.imgUrl4 = k.path
             }
             if (k.imageType === 5) {
               this.imgUrl5 = k.path
+            }
+            if (k.imageType === 6) {
+              this.imgUrl6 = k.path
+            }
+            if (k.imageType === 7) {
+              this.imgUrl7 = k.path
             }
           }
         }

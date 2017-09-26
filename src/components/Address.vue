@@ -17,7 +17,6 @@
 <script>
 import { ERR_OK } from '../common/js/config'
 import { getProvince, getCity } from '../api/index'
-import { mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -53,6 +52,7 @@ export default {
           this.address.area = ''
           this.area = []
           this.city = this.getAddress(res.list)
+          this.$emit('listenToChildEvent', this.address)
         }
       })
     },
@@ -64,12 +64,12 @@ export default {
         if (res.code === ERR_OK) {
           this.area = this.getAddress(res.list)
           this.address.area = ''
+          this.$emit('listenToChildEvent', this.address)
         }
       })
     },
     getthir() {
       this.$emit('listenToChildEvent', this.address)
-      this.setAddress(this.address)
     },
     getAddress(lists) {
       let pro = {
@@ -83,10 +83,7 @@ export default {
         })
       })
       return pro.items
-    },
-    ...mapMutations({
-      setAddress: 'SET_ADDRESS'
-    })
+    }
   }
 }
 </script>

@@ -120,7 +120,10 @@ export default {
       pageIndex: 1,
       pageSize: 10,
       total: 1,
-      params: {},
+      params: {
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
+      },
       companyName: '',
       companyId: '',
       detailAddress: '',
@@ -129,11 +132,14 @@ export default {
       province: '',
       city: '',
       area: '',
-      id: ''
+      id: '',
+      a: '',
+      b: '',
+      c: ''
     }
   },
   created() {
-    this._getList()
+    this.search()
   },
   methods: {
     _getList() {
@@ -153,12 +159,18 @@ export default {
     },
     ssss(data) {
       console.log(data)
+      this.a = data.province
+      this.b = data.city
+      this.c = data.area
       this.params = {
         companyName: this.company,
         province: data.province,
         city: data.city,
-        area: data.area
+        area: data.area,
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
       }
+      console.log(data)
     },
     // 弹窗地址
     baddress(data) {
@@ -170,9 +182,11 @@ export default {
     search() {
       this.params = {
         companyName: this.company,
-        province: '',
-        city: '',
-        area: ''
+        province: this.a,
+        city: this.b,
+        area: this.c,
+        pageSize: this.pageSize,
+        pageIndex: this.pageIndex
       }
       this._getList()
     },
@@ -215,17 +229,19 @@ export default {
       let params = {
         companyName: this.companyName,
         resPerson: this.resPerson,
+        companyId: this.companyId,
         mobile: this.mobile,
         province: this.province,
         city: this.city,
         area: this.area,
         detailAddress: this.detailAddress
       }
-      if (this.addeidt) {
+      if (!this.addeidt) {
         addCompany(params).then((res) => {
           if (res.code === ERR_OK) {
             this._getList()
             this.dialogVisible = false
+            window.location.reload()
           }
         })
       } else {
@@ -243,7 +259,7 @@ export default {
     },
     handleCurrentChange(val) {
       this.pageIndex = val
-      this._getList()
+      this.search()
     }
   }
 }
