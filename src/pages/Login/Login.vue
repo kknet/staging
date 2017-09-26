@@ -31,8 +31,8 @@ export default {
     return {
       imgUrl: '/zsdsys/common/checkCode.jpg',
       ruleForm: {
-        account: '1',
-        password: '123456',
+        account: '',
+        password: '',
         checkCode: ''
       },
       falval: '',

@@ -108,11 +108,11 @@ export default {
           label: '还款中'
         },
         {
-          value: 7,
+          value: 3,
           label: '有逾期'
         },
         {
-          value: 5,
+          value: 4,
           label: '需代还'
         },
         {

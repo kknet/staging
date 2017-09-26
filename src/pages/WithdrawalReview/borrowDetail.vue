@@ -21,7 +21,7 @@
         </div>
         <div class="title">
           <span class="first-span">借款金额</span>
-          <span v-if="detailList">{{detailList.amount}}</span>
+          <span v-if="detailList">{{detailList.amount/100}}</span>
         </div>
         <div class="title">
           <span class="first-span">还款期数</span>
@@ -60,12 +60,12 @@
           <span v-if="detailList">{{detailList.bankCardNo}}</span>
         </div>
         <div>
-          <div><a :href="imgUrl1" target="_blank">借款合同</a></div>
-          <div><a :href="imgUrl2" target="_blank">付款委托与确认书</a></div>
-          <div><a :href="imgUrl3" target="_blank">个人信息查询授权书</a></div>
-          <div><a :href="imgUrl4" target="_blank">委托代理确认书</a></div>
-          <div><a :href="imgUrl5" target="_blank">担保合同</a></div>
-          <div></div>
+          <div class="pdf"><a :href="imgUrl1" target="_blank">借款合同</a></div>
+          <div class="pdf"><a :href="imgUrl2" target="_blank">付款委托与确认书</a></div>
+          <div class="pdf"><a :href="imgUrl3" target="_blank">个人信息查询授权书</a></div>
+          <div class="pdf"><a :href="imgUrl4" target="_blank">委托代理确认书</a></div>
+          <div class="pdf"><a :href="imgUrl5" target="_blank">担保合同</a></div>
+          <div ></div>
           <div></div>
         </div>
       </div>
@@ -81,9 +81,9 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item,index) in repayList" v-show="repayList" :key="item.key">
+          <tr v-for="(item,index) in repayList" v-show="repayList" :key="item">
             <td>{{item.repayPeriod}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.amount/100}}</td>
             <td>{{item.repayDate}}</td>
             <td>{{item.status | getStatus(item.overDueDays)}}</td>
             <td>
@@ -270,6 +270,9 @@ export default {
         border-bottom: 1px solid #dddddd;
       }
     }
+  }
+  .pdf{
+    margin:15px 0 0 15px;
   }
 }
 </style>

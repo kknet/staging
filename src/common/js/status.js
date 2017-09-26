@@ -20,7 +20,7 @@ export function statusFormatters(value) {
     case 2:
       return '已分期';
     case 3:
-      return '已逾期';
+      return '有逾期';
     case 4:
       return '需代还(逾期超10天)';
     case 5:
