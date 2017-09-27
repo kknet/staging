@@ -29,7 +29,7 @@ import { ERR_OK } from '../../common/js/config'
 export default {
   data: function() {
     return {
-      imgUrl: '/zsdsys/common/checkCode.jpg',
+      imgUrl: '/zyd/common/checkCode.jpg',
       ruleForm: {
         account: '',
         password: '',
@@ -81,7 +81,7 @@ export default {
       }
     },
     img() {
-      this.imgUrl = '/zsdsys/common/checkCode.jpg' + '?' + Math.random()
+      this.imgUrl = '/zyd/common/checkCode.jpg' + '?' + Math.random()
     }
   }
 }

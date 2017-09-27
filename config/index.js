@@ -28,12 +28,12 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/zsdsys': {
+      '/zyd': {
         target: 'http://192.168.18.170:8061',
         // target:'http://192.168.18.178:3000',
         changeOrigin: true,
         pathRewrite: {
-          '^/zsdsys': ''
+          '^/zyd': ''
         }
       }
     },
