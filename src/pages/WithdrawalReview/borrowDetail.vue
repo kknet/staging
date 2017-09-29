@@ -111,6 +111,7 @@ export default {
       detailList: {},
       repayList: [],
       id: '',
+      repay: '',
       urlList: [],
       imgUrl1: 'javascript:void(0)',
       imgUrl2: 'javascript:void(0)',
@@ -184,7 +185,7 @@ export default {
         repayMony(params).then((res) => {
           if (res.code === ERR_OK) {
             this.getDetail(this.id);
-            this.getRepayPaln(this.id)
+            this.getRepayPaln(this.repay)
           }
         })
       }).catch(() => {
@@ -197,7 +198,7 @@ export default {
     // 还款计划
     getRepayPaln(id) {
       let params = {
-        id: id
+        repaymentNo: id
       }
       repay(params).then((res) => {
         if (res.code === ERR_OK) {
@@ -214,8 +215,9 @@ export default {
   },
   created() {
     this.id = this.$route.query.id
+    this.repay = this.$route.query.repay
     this.getDetail(this.id);
-    this.getRepayPaln(this.id);
+    this.getRepayPaln(this.repay);
   }
 }
 </script>

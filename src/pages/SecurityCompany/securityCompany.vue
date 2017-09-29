@@ -38,7 +38,7 @@
           </thead>
           <tbody>
             <tr v-for="(item, index) in getList" :key="item.value" v-show="getList">
-              <td>{{item.companyName}}({{item.repaymentNo}})</td>
+              <td>{{item.companyName}}({{item.number}})</td>
               <td>{{item.companyId}}</td>
               <td>{{item.province}}{{item.city}}{{item.area}}{{item.detailAddress}}</td>
               <td>{{item.resPerson}}</td>

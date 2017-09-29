@@ -73,7 +73,7 @@
             <td>{{item.companyName}}</td>
             <td>{{item.loadStatus | getStatus}}</td>
             <td>
-              <el-button type="primary" @click="goDetail(item.id)">详情</el-button>
+              <el-button type="primary" @click="goDetail(item.id,item.repaymentNo)">详情</el-button>
             </td>
           </tr>
           <tr v-show="billList.length === 0">
@@ -189,9 +189,9 @@ export default {
       })
     },
     // 跳转至详情
-    goDetail(id) {
+    goDetail(id, pay) {
       // this.$router.push({ name: 'borrowDetail', params: { id } })
-      this.$router.push('/borrowDetail?id=' + id)
+      this.$router.push('/borrowDetail?id=' + id + '&repay=' + pay)
     },
     // 分页
     handleSizeChange(val) {
