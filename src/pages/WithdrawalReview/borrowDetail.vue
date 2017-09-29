@@ -29,7 +29,7 @@
         </div>
         <div class="title">
           <span class="first-span">生成时间</span>
-          <span v-if="detailList">{{detailList.updated |getTime}}</span>
+          <span v-if="detailList">{{detailList.secondCheckTime |getTime}}</span>
         </div>
         <div class="title">
           <span class="first-span">借款时间</span>
@@ -81,7 +81,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="(item,index) in repayList" v-show="repayList" :key="item">
+          <tr v-for="(item,index) in repayList" v-show="repayList" :key="item.key">
             <td>{{item.repayPeriod}}</td>
             <td>{{item.amount/100}}</td>
             <td>{{item.repayDate}}</td>
@@ -112,11 +112,11 @@ export default {
       repayList: [],
       id: '',
       urlList: [],
-      imgUrl1: '',
-      imgUrl2: '',
-      imgUrl3: '',
-      imgUrl4: '',
-      imgUrl5: ''
+      imgUrl1: 'javascript:void(0)',
+      imgUrl2: 'javascript:void(0)',
+      imgUrl3: 'javascript:void(0)',
+      imgUrl4: 'javascript:void(0)',
+      imgUrl5: 'javascript:void(0)'
     }
   },
   filters: {
@@ -140,24 +140,26 @@ export default {
           console.log(res)
           this.detailList = res.list[0]
           let urlList = res.obj.contractUrl
-          console.log(urlList)
-          for (let k of urlList) {
-            if (k.contractType === 1) {
-              this.imgUrl1 = k.viewpfdUrl
-            }
-            if (k.contractType === 2) {
-              this.imgUrl2 = k.viewpfdUrl
-            }
-            if (k.contractType === 3) {
-              this.imgUrl3 = k.viewpfdUrl
-            }
-            if (k.contractType === 4) {
-              this.imgUrl4 = k.viewpfdUrl
-            }
-            if (k.contractType === 5) {
-              this.imgUrl5 = k.viewpfdUrl
+          if (urlList) {
+            for (let k of urlList) {
+              if (k.contractType === 1) {
+                this.imgUrl1 = k.viewpfdUrl
+              }
+              if (k.contractType === 2) {
+                this.imgUrl2 = k.viewpfdUrl
+              }
+              if (k.contractType === 3) {
+                this.imgUrl3 = k.viewpfdUrl
+              }
+              if (k.contractType === 4) {
+                this.imgUrl4 = k.viewpfdUrl
+              }
+              if (k.contractType === 5) {
+                this.imgUrl5 = k.viewpfdUrl
+              }
             }
           }
+          console.log(urlList)
         }
       })
     },

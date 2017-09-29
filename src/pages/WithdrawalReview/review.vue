@@ -67,7 +67,7 @@
           <tr v-show="billList.length > 0" v-for="item in billList">
             <td>{{item.orderNo}}</td>
             <td>{{item.shopName}}</td>
-            <td>{{item.amount}}</td>
+            <td>{{item.amount/100}}</td>
             <td>{{item.dealTime |getTime}}</td>
             <td>{{item.employeeName}}</td>
             <td>{{item.companyName}}</td>

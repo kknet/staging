@@ -5,8 +5,6 @@ export function statusFormatter(value, n) {
     return '待还款'
   } else if (value === 3) {
     return `已逾期(${n}天)`
-  } else if (value === 4) {
-    return `已还款，有逾期：已还款（逾期${n}天）`
   } else if (value === 5) {
     return `已代还（逾期${n}天）`
   }
@@ -18,7 +16,7 @@ export function statusFormatters(value) {
     case 1:
       return '审核中';
     case 2:
-      return '已分期';
+      return '还款中';
     case 3:
       return '有逾期';
     case 4:

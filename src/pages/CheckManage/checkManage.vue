@@ -106,10 +106,10 @@ export default {
         checkMan: ''
       },
       addForm: {
-        phone: '13958776325',
-        checkMan: '林祺泰',
-        identityId: '330327199207250810',
-        company: null
+        phone: '',
+        checkMan: '',
+        identityId: '',
+        company: ''
       },
       rules: {
         phone:
@@ -219,6 +219,7 @@ export default {
           addChecker(data).then(res => {
             console.log(res)
             if (res.code === 0) {
+              this.addForm = {}
               let data = {
                 pageIndex: this.pageIndex,
                 pageSize: this.pageSize

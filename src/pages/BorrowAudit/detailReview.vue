@@ -89,7 +89,7 @@
         </div>
         <div class="title">
           <span>审核员　　　　　</span>
-          <span>{{reviews.employeeName}}/{{reviews.mobile}}</span>
+          <span v-if="reviews">{{reviews.employeeName}}/{{reviews.mobile}}</span>
         </div>
       </div>
       <h2>照片信息</h2>
@@ -278,28 +278,32 @@ export default {
       })
     },
     dialogVisibles() {
-      let params = {
-        applyId: this.id,
-        statusAfter: this.value,
-        failReason: this.textarea
-      }
-      insure(params).then(res => {
-        console.log(res)
-        if (res.code === ERR_OK) {
-          this.dialogVisible = false
-          let data = {}
-          result(data).then(res => {
-            if (res.code === ERR_OK) {
-              this.result()
-              this.status = this.statusAfter
-              localStorage.setItem('ms_username', this.value)
-              window.location.reload()
-            }
-          })
-        } else {
-          alert(res.error)
+      if (this.value === '6' && !this.textarea) {
+        alert('驳回原因不能为空')
+      } else {
+        let params = {
+          applyId: this.id,
+          statusAfter: this.value,
+          failReason: this.textarea
         }
-      })
+        insure(params).then(res => {
+          console.log(res)
+          if (res.code === ERR_OK) {
+            this.dialogVisible = false
+            let data = {}
+            result(data).then(res => {
+              if (res.code === ERR_OK) {
+                this.result()
+                this.status = this.statusAfter
+                localStorage.setItem('ms_username', this.value)
+                window.location.reload()
+              }
+            })
+          } else {
+            alert(res.error)
+          }
+        })
+      }
     },
     // 审核
     review() {
