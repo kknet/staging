@@ -168,8 +168,6 @@ export default {
         } else {
           this.$message(res.error)
         }
-      }).catch(res => {
-        this.$message('系统故障或没有网络，错误代码为：' + res)
       })
     },
     openForbiddenBox(id, auditorStatus, account) {
