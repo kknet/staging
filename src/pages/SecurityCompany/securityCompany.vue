@@ -229,7 +229,7 @@ export default {
       let params = {
         companyName: this.companyName,
         resPerson: this.resPerson,
-        companyId: this.companyId,
+        companyId: this.addeidt ? this.id : this.companyId,
         mobile: this.mobile,
         province: this.province,
         city: this.city,
@@ -249,6 +249,7 @@ export default {
           if (res.code === ERR_OK) {
             this._getList()
             this.dialogVisible = false
+            window.location.reload()
           }
         })
       }
