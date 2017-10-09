@@ -219,7 +219,7 @@ export default {
         _startTime: this.startTime,
         _endTime: this.endTime
       }
-      this.link = '/zsdsys/apply/list/export.json?' + param(data)
+      this.link = '/zyd/apply/list/export.json?' + param(data)
     }
   },
   created() {

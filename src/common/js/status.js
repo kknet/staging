@@ -2,7 +2,7 @@ export function statusFormatter(value, n) {
   if (value === 1) {
     return '待还款'
   } else if (value === 2) {
-    return '待还款'
+    return '已还款'
   } else if (value === 3) {
     return `已逾期(${n}天)`
   } else if (value === 5) {
